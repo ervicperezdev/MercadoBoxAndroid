@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "165437530945",
+    "firebase_url": "https://meradobox.firebaseio.com",
+    "project_id": "meradobox",
+    "storage_bucket": "meradobox.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:165437530945:android:dacebd83e665874b",
+        "android_client_info": {
+          "package_name": "com.designbyte.mercadobox"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "165437530945-j1tqvijfrl02fg1ml3bd25tkaj5bok3i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.designbyte.mercadobox",
+            "certificate_hash": "32020ab159bfb5bfbcb9614ffe180b2b6ed8e423"
+          }
+        },
+        {
+          "client_id": "165437530945-gf92kvpq6t3b22l37h0a6gn5m7nf4nnl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCY79fQqyJ6AU0lbqBPDdDm09rf5GKwL50"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "165437530945-gf92kvpq6t3b22l37h0a6gn5m7nf4nnl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

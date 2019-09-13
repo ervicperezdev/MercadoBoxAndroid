@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#27C96D</color>
+    <color name="colorPrimary2">#3DAF6E</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#27C96D</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorWhite2">#BBBBBB</color>
+    <color name="colorGrey">#828282</color>
+    <color name="colorBlueNav">#1B5271</color>
+
+
+
+
+    <color name="colorTextUnity">#191919</color>
+    <color name="colorTextCost">#707070</color>
+
+
+    <color name="colorTextCostCart">#090909</color>
+    <color name="colorTextProductCart">#707070</color>
+
+    <color name="colorTextDateHour">#020202</color>
+    <color name="colorGreyBackgroundDetailOrder">#2b707070</color>
+    <color name="colorGreyDetailOrder">#707070</color>
+
+    <color name="colorTextDetailPayment">#0C0B0B</color>
+
+    <color name="colorTextTotalCart">#08707070</color>
+</resources>

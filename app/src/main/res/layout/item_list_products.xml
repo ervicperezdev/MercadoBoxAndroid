@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="160dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:cardCornerRadius="5dp"
+    app:cardElevation="2dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp">
+
+        <Button
+            android:id="@+id/btnAdd"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:background="@drawable/corner_round_green"
+            android:text="AGREGAR"
+
+            android:textColor="@color/colorWhite"
+            android:theme="@style/RaisedButton_profile"
+            app:layout_constraintTop_toBottomOf="@+id/costProduct" />
+
+        <ImageView
+            android:id="@+id/imgProduct"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <RelativeLayout
+            android:id="@+id/quantityProduct"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/costProduct">
+
+            <Button
+                android:id="@+id/less"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/corner_round_quantity"
+                android:padding="5dp"
+                android:text="-"
+                android:textAlignment="center"
+                android:textColor="@color/colorWhite"
+                android:theme="@style/RaisedButton_profile" />
+
+            <Button
+                android:id="@+id/plus"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/corner_round_quantity"
+                android:padding="5dp"
+                android:text="+"
+                android:textAlignment="center"
+                android:textColor="@color/colorWhite"
+                android:theme="@style/RaisedButton_profile" />
+
+            <TextView
+                android:id="@+id/quantityName"
+                android:layout_width="fill_parent"
+                android:layout_height="36dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:text="1kg"
+                android:textColor="@color/colorTextUnity"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/nameProduct"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:gravity="center"
+            android:text="nombre"
+            android:textColor="@color/colorTextCost"
+            android:textSize="15sp"
+            app:layout_constraintTop_toBottomOf="@+id/imgProduct" />
+
+        <TextView
+            android:id="@+id/costProduct"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="$100"
+            android:textColor="@color/colorTextCost"
+            app:layout_constraintTop_toBottomOf="@+id/nameProduct"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

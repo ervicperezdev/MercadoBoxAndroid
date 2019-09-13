@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    app:cardCornerRadius="5dp"
+    app:cardElevation="2dp"
+    android:layout_width="match_parent"
+    android:layout_height="120dp">
+    <LinearLayout
+        android:padding="10dp"
+        android:weightSum="4"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/imgProduct"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Product"
+                    android:id="@+id/nameProduct"
+                    android:textSize="12sp"
+                    android:textColor="@color/colorTextProductCart"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/descriptionProduct"
+                    android:textColor="@color/colorTextUnity"
+                    android:text="Rs. 100 / kg"
+                    />
+            </LinearLayout>
+            <RelativeLayout
+                android:id="@+id/quantityProduct"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_alignParentBottom="true"
+                >
+
+                <Button
+                    android:id="@+id/less"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="-"
+                    android:padding="5dp"
+                    android:textColor="@color/colorWhite"
+                    android:theme="@style/RaisedButton_profile"
+                    android:background="@drawable/corner_round_quantity"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:id="@+id/quantityName"
+                    android:layout_width="fill_parent"
+                    android:layout_height="36dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:textColor="@color/colorTextUnity"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:text="1kg" />
+
+                <Button
+                    android:id="@+id/plus"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:textAlignment="center"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:padding="5dp"
+                    android:textColor="@color/colorWhite"
+                    android:theme="@style/RaisedButton_profile"
+                    android:background="@drawable/corner_round_quantity"
+                    android:text="+" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/deleteProduct"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/ic_trash"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/totalProduct"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="$100"
+                android:gravity="end"
+                android:padding="10dp"
+                android:textColor="@color/colorTextCostCart"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
