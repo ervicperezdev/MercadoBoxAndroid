@@ -84,7 +84,6 @@ public class CartActivity extends AppCompatActivity implements CartView{
         recyclerProductsCart.setAdapter(adapterProductsCart);
         recyclerProductsCart.setHasFixedSize(true);
         setTotalList(items);
-
     }
 
     public void setTotalList(List<Cart> items){
