@@ -15,6 +15,9 @@ public class Cart {
     @ColumnInfo(name = "idProduct")
     public int idProduct;
 
+    @ColumnInfo(name = "name")
+    public String name;
+
     @ColumnInfo(name = "quantity")
     public int quantity;
 
@@ -26,5 +29,11 @@ public class Cart {
 
     @ColumnInfo(name = "costByUnit")
     public float costByUnit;
+
+    @ColumnInfo(name = "image")
+    public String image;
+
+    @ColumnInfo(name = "description")
+    public String description;
 
 }

@@ -57,6 +57,8 @@ public class MainInteractor {
                         newCart.idCategory = idCategory;
                         newCart.idProduct = idProduct;
                         newCart.quantity = 1;
+                        newCart.name = product.name;
+                        newCart.description = "";
                         db.cartDao().insertItem(newCart);
                         listener.onCompleteUpdated();
                     }

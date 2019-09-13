@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity
                     Toast.makeText(MainActivity.this,String.format("plus %s",idCategory),Toast.LENGTH_LONG).show();
                 }
             }
+
         };
 
         loadDataCategories();

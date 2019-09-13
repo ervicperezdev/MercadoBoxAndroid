@@ -4,52 +4,78 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.designbyte.mercadobox.R;
-import com.designbyte.mercadobox.models.ProductCart;
+import com.designbyte.mercadobox.cart.ViewHolder.ViewHolderProductsCart;
+import com.designbyte.mercadobox.cart.listener.RecyclerViewCartClickListener;
+import com.designbyte.mercadobox.models.db.AppDatabase;
+import com.designbyte.mercadobox.models.db.Cart;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class AdapterProductsCart extends RecyclerView.Adapter<AdapterProductsCart.ViewHolderProductsCart> {
-    List<ProductCart> productCartList;
+import static androidx.room.Room.databaseBuilder;
+
+public class AdapterProductsCart extends RecyclerView.Adapter<ViewHolderProductsCart> {
+    List<Cart> productCartList;
     Context context;
+    RecyclerViewCartClickListener mListener;
+    Cart itemCart;
+    AppDatabase db;
+
+    public AdapterProductsCart(List<Cart> productCartList, Context context, RecyclerViewCartClickListener listener) {
+        this.productCartList = productCartList;
+        this.context = context;
+        this.mListener = listener;
+        db = databaseBuilder(context,
+                AppDatabase.class, "mbdb").allowMainThreadQueries().build();
+    }
+
     @NonNull
     @Override
     public ViewHolderProductsCart onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.item_list_product_cart,parent,false);
-        return new ViewHolderProductsCart(view);
+        return new ViewHolderProductsCart(view,mListener);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolderProductsCart holder, int position) {
-        Picasso.get().load(productCartList.get(position).imgProduct).into(holder.imgProduct);
-        holder.nameProduct.setText(productCartList.get(position).nameProduct);
-        holder.descriptionProduct.setText(productCartList.get(position).descriptionProduct);
-        holder.quantityName.setText(productCartList.get(position).quantityName);
-        holder.totalProduct.setText(String.format("%",productCartList.get(position).total));
+    public void onBindViewHolder(@NonNull final ViewHolderProductsCart holder, final int position) {
+        Picasso.get().load(productCartList.get(position).image).into(holder.imgProduct);
+        holder.nameProduct.setText(productCartList.get(position).name);
+        holder.descriptionProduct.setText(productCartList.get(position).description);
+        holder.quantityName.setText(String.format("%s %s",productCartList.get(position).quantity,productCartList.get(position).unity));
+        holder.totalProduct.setText(String.format("%s",(productCartList.get(position).costByUnit*productCartList.get(position).quantity)));
+
         holder.less.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                holder.mListener.onClick(v,position,productCartList.get(position).id);
+                itemCart = db.cartDao().getItemCartById(productCartList.get(position).id);
+                holder.quantityName.setText(String.format("%s %s",itemCart.quantity,itemCart.unity));
+                holder.totalProduct.setText(String.format("$%s",(itemCart.costByUnit*itemCart.quantity)));
+                holder.mListener.onCostTotalChange(db.cartDao().getTotal());
             }
         });
         holder.plus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                holder.mListener.onClick(v,position,productCartList.get(position).id);
+                itemCart = db.cartDao().getItemCartById(productCartList.get(position).id);
+                holder.quantityName.setText(String.format("%s %s",itemCart.quantity,itemCart.unity));
+                holder.totalProduct.setText(String.format("$%s",(itemCart.costByUnit*itemCart.quantity)));
+                holder.mListener.onCostTotalChange(db.cartDao().getTotal());
 
             }
         });
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                holder.mListener.onClick(v,position,productCartList.get(position).id);
+                deleteItem(position);
+                holder.mListener.onCostTotalChange(db.cartDao().getTotal());
 
             }
         });
@@ -60,22 +86,8 @@ public class AdapterProductsCart extends RecyclerView.Adapter<AdapterProductsCar
         return productCartList!=null?productCartList.size():0;
     }
 
-
-    public class ViewHolderProductsCart extends RecyclerView.ViewHolder {
-        ImageView imgProduct;
-        TextView nameProduct, descriptionProduct, quantityName, totalProduct;
-        Button less, plus, delete;
-        public ViewHolderProductsCart(@NonNull View itemView) {
-            super(itemView);
-
-            imgProduct = itemView.findViewById(R.id.imgProduct);
-            nameProduct = itemView.findViewById(R.id.nameProduct);
-            descriptionProduct = itemView.findViewById(R.id.descriptionProduct);
-            quantityName = itemView.findViewById(R.id.quantityName);
-            totalProduct = itemView.findViewById(R.id.totalProduct);
-            less = itemView.findViewById(R.id.less);
-            plus = itemView.findViewById(R.id.plus);
-            delete = itemView.findViewById(R.id.deleteProduct);
-        }
+    public void deleteItem(int position) {
+        productCartList.remove(position);
+        notifyItemRemoved(position);
     }
 }

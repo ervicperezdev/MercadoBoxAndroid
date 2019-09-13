@@ -20,6 +20,8 @@ public interface CartDao {
     @Query("SELECT * FROM Cart WHERE idCategory = :idCategory AND idProduct = :idProduct")
     Cart getItemCart(int idCategory, int idProduct);
 
+    @Query(("SELECT SUM(quantity*costByUnit) FROM Cart "))
+    float getTotal();
     @Insert
     void insertItem(Cart cart);
 
@@ -28,4 +30,6 @@ public interface CartDao {
 
     @Update
     void updateItem(Cart cart);
+
+
 }
