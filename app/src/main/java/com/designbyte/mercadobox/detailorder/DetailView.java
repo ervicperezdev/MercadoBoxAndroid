@@ -1,5 +1,5 @@
 package com.designbyte.mercadobox.detailorder;
 
-public class DetailView {
+public interface DetailView {
 
 }

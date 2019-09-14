@@ -26,7 +26,6 @@
         android:layout_marginRight="20dp"
         android:textColor="@color/colorTextDateHour"
         android:textStyle="bold"
-        android:text="avenida de ejemplo numero 120"
         />
     <EditText
         app:layout_constraintTop_toBottomOf="@+id/tvAddress"

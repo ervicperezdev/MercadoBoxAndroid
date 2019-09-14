@@ -11,9 +11,9 @@ import com.designbyte.mercadobox.R;
 import com.designbyte.mercadobox.orderhistory.listener.RecyclerViewOrderClickListener;
 
 public class ViewHolderOrder extends RecyclerView.ViewHolder {
-    TextView name, numProducts, folioOrder, status, total, date;
-    CardView cardView;
-    RecyclerViewOrderClickListener mListener;
+    public TextView name, numProducts, folioOrder, status, total, date;
+    public CardView cardView;
+    public RecyclerViewOrderClickListener mListener;
 
     public ViewHolderOrder(@NonNull View itemView, RecyclerViewOrderClickListener listener) {
         super(itemView);
@@ -23,7 +23,8 @@ public class ViewHolderOrder extends RecyclerView.ViewHolder {
         status = itemView.findViewById(R.id.statusOrder);
         total = itemView.findViewById(R.id.totalOrder);
         date = itemView.findViewById(R.id.textDate);
+        cardView = itemView.findViewById(R.id.cardView);
         mListener = listener;
-
     }
+
 }

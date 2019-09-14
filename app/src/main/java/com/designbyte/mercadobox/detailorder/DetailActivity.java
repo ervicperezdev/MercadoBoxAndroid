@@ -6,13 +6,19 @@ import androidx.viewpager.widget.ViewPager;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.designbyte.mercadobox.R;
+import com.designbyte.mercadobox.adapter.CommonPagerAdapter;
+import com.designbyte.mercadobox.detailorder.helper.LockableViewPager;
 
 import java.util.Calendar;
 
@@ -21,12 +27,20 @@ import static com.designbyte.mercadobox.utils.Constants.CERO;
 import static com.designbyte.mercadobox.utils.Constants.DOS_PUNTOS;
 
 public class DetailActivity extends AppCompatActivity {
-    ViewPager viewPager;
+    LockableViewPager viewPager;
     CommonPagerAdapter commonPagerAdapter;
     ImageView previous, next;
     TextView textPrevious, textNext;
     TextView textDate, textTime;
     ImageView btnDate, btnTime;
+    TextView tvAddress;
+    EditText etAddress;
+    CheckBox checkboxConfirmOrder;
+    EditText noteOrder;
+
+
+    TextView numCard, nameCard, lastNameCard, monthExpiration, yearExpiration, cvvCard;
+    EditText totalCart;
 
     //Calendario para obtener fecha & hora
     public final Calendar c = Calendar.getInstance();
@@ -48,6 +62,9 @@ public class DetailActivity extends AppCompatActivity {
         commonPagerAdapter.insertViewId(R.id.firstPage);
         commonPagerAdapter.insertViewId(R.id.secondPage);
         viewPager.setAdapter(commonPagerAdapter);
+
+        showNext();
+        viewPager.setSwipeLocked(true);
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,6 +93,23 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
+        etAddress.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                tvAddress.setText(s + "");
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
     }
 
     public void showPrevious(){
@@ -101,6 +135,12 @@ public class DetailActivity extends AppCompatActivity {
         btnTime = findViewById(R.id.btnTime);
         textNext = findViewById(R.id.textNext);
         textPrevious = findViewById(R.id.textPrevious);
+        etAddress = findViewById(R.id.etAddress);
+        tvAddress = findViewById(R.id.tvAddress);
+        checkboxConfirmOrder = findViewById(R.id.checkboxConfirmOrder);
+        noteOrder = findViewById(R.id.noteOrder);
+
+
 
     }
     private int getItemofviewpager(int i) {

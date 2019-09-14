@@ -6,22 +6,43 @@
     android:layout_height="match_parent"
     tools:context=".detailorder.DetailActivity">
 
-    <androidx.viewpager.widget.ViewPager
+    <com.designbyte.mercadobox.detailorder.helper.LockableViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/bottomControls"
         android:layout_height="0dp">
-        <include
-            layout="@layout/layout_detail"
+        <ScrollView
             android:id="@+id/firstPage"
-            ></include>
-        <include
-            layout="@layout/layout_payment_detail"
-            android:id="@+id/secondPage"
-            ></include>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <include
+                    layout="@layout/layout_detail"
+                    ></include>
 
-    </androidx.viewpager.widget.ViewPager>
+            </LinearLayout>
+        </ScrollView>
+
+        <ScrollView
+            android:id="@+id/secondPage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <include
+                    layout="@layout/layout_payment_detail"
+                    ></include>
+
+            </LinearLayout>
+        </ScrollView>
+
+    </com.designbyte.mercadobox.detailorder.helper.LockableViewPager>
     
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/bottomControls"

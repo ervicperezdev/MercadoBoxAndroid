@@ -9,20 +9,20 @@ import java.util.List;
 public class Order {
     @SerializedName("idOrder")
     @Expose
-    int idOrder;
+    public int idOrder;
 
     @SerializedName("name")
     @Expose
-    String name;
+    public String name;
     @SerializedName("status")
     @Expose
-    int status;
+    public int status;
 
     @SerializedName("date")
     @Expose
-    String date;
+    public String date;
 
     @SerializedName("products")
     @Expose
-    List<Cart> products;
+    public List<Cart> products;
 }

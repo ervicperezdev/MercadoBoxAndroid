@@ -27,11 +27,9 @@ public class OrderHistoryInteractor {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 try{
-
                     GenericTypeIndicator<ArrayList<Order>> t = new GenericTypeIndicator<ArrayList<Order>>() {};
                     ArrayList<Order> yourStringArray = dataSnapshot.getValue(t);
                     listener.setDataOrder(yourStringArray);
-
                 }catch (Exception e){
                     Log.e("OrderHistoryInteractor","onDataChanged"+e.getMessage());
                 }finally {

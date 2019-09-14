@@ -7,15 +7,6 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".main.MainActivity"
     tools:showIn="@layout/app_bar_main">
-
-    <Button
-        android:id="@+id/btnCart"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Ver carrito"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyle"
@@ -35,7 +26,28 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerCategories"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toTopOf="@id/btnCart" />
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btnCartCardView" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/btnCartCardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="5dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        app:cardCornerRadius="10dp"
+        app:cardBackgroundColor="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@android:color/transparent"
+            android:text="Ver carrito"
+            android:id="@+id/btnCart"
+            android:textColor="@color/colorWhite"></Button>
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
