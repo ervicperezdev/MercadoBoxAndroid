@@ -8,12 +8,11 @@
             android:id="@+id/nav_profile"
             android:icon="@drawable/ic_profile"
             android:title="Perfil" />
-        <!--
+
         <item
             android:id="@+id/nav_orderhistory"
-
-            android:title="Historial de pedido" />
-            !-->
+            android:icon="@drawable/ic_query_builder_black_24dp"
+            android:title="Pedidos" />
         <item
             android:id="@+id/nav_address"
             android:icon="@drawable/ic_location"

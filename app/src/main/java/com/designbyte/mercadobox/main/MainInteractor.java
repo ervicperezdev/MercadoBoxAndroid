@@ -85,7 +85,6 @@ public class MainInteractor {
                 db.cartDao().deleteItem(item);
                 listener.onCompleteUpdated();
                 break;
-
         }
         db.close();
     }
@@ -125,13 +124,11 @@ public class MainInteractor {
 
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.e("MainInteractor","onCancelled"+databaseError.getMessage());
             }
         };
-
         database = FirebaseDatabase.getInstance();
         categories = database.getReference("Categories");
         categories.addValueEventListener(valueEventListener);

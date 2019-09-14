@@ -3,9 +3,12 @@ package com.designbyte.mercadobox.cart;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -13,6 +16,7 @@ import android.widget.Toast;
 import com.designbyte.mercadobox.R;
 import com.designbyte.mercadobox.cart.adapters.AdapterProductsCart;
 import com.designbyte.mercadobox.cart.listener.RecyclerViewCartClickListener;
+import com.designbyte.mercadobox.detailorder.DetailActivity;
 import com.designbyte.mercadobox.models.db.Cart;
 import com.designbyte.mercadobox.utils.Constants;
 
@@ -25,7 +29,7 @@ public class CartActivity extends AppCompatActivity implements CartView{
     CartPresenter cartPresenter;
     RecyclerViewCartClickListener listener;
     TextView textViewTotalCart;
-
+    Button btnContinue;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,12 +58,19 @@ public class CartActivity extends AppCompatActivity implements CartView{
             }
         };
         loadItemsCart();
+        btnContinue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToDetailOrder();
+            }
+        });
     }
 
     public void initViews(){
         progressBar = findViewById(R.id.progressBar);
         recyclerProductsCart = findViewById(R.id.recyclerProductsCart);
         textViewTotalCart = findViewById(R.id.totalCart);
+        btnContinue = findViewById(R.id.btnContinue);
     }
 
     @Override
@@ -99,4 +110,7 @@ public class CartActivity extends AppCompatActivity implements CartView{
     }
 
 
+    public void goToDetailOrder(){
+        startActivity(new Intent(CartActivity.this, DetailActivity.class));
+    }
 }

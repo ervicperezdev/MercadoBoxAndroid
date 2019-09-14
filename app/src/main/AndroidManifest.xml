@@ -9,10 +9,16 @@
         android:roundIcon="@drawable/logomercadobox"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".detailorder.DetailActivity"></activity>
+        <activity android:name=".orderhistory.OrderHistoryActivity"></activity>
+        <activity android:name=".orderhistory.OrderHistoryctivity" />
+        <activity
+            android:name=".detailorder.DetailActivity"
+            android:label="Detalle de compra"
+            android:parentActivityName=".cart.CartActivity" />
         <activity
             android:name=".cart.CartActivity"
-            android:label="Productos en carrito " />
+            android:label="Productos en carrito "
+            android:parentActivityName=".main.MainActivity" />
         <activity
             android:name=".splash.SplashActivity"
             android:theme="@style/AppTheme.NoActionBar">
