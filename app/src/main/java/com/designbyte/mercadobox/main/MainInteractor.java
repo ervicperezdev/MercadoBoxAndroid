@@ -56,6 +56,7 @@ public class MainInteractor {
                         newCart.unity = product.unity;
                         newCart.idCategory = idCategory;
                         newCart.idProduct = idProduct;
+                        newCart.image = product.img;
                         newCart.quantity = 1;
                         newCart.name = product.name;
                         newCart.description = "";
