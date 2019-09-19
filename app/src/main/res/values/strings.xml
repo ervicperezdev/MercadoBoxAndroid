@@ -17,4 +17,13 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    
+    
+    
+    
+    
+    
+    
+    <string name="merchant_id">mtlxdpy7ylf8yiqkufkq</string>
+    <string name="public_api_key_openpay">pk_62d59abf60ff4a01a4817a3c14ac045a</string>
 </resources>

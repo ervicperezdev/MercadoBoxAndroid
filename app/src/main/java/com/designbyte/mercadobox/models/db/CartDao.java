@@ -31,5 +31,6 @@ public interface CartDao {
     @Update
     void updateItem(Cart cart);
 
-
+    @Query("DELETE FROM Cart")
+    void deleteAll();
 }

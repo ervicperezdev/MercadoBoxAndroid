@@ -17,6 +17,8 @@
         android:layout_marginTop="32dp"
         android:background="@drawable/edit_round_note"
         android:hint="Número de tarjeta"
+        android:inputType="number"
+        android:maxLength="16"
         android:id="@+id/numCard"
         />
     <TextView
@@ -87,7 +89,7 @@
             android:id="@+id/monthExpiration"
             android:inputType="number"
             android:hint="MM"
-            android:maxEms="2"
+            android:maxLength="2"
             app:layout_constraintTop_toBottomOf="@id/tvExpiration"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -106,7 +108,7 @@
             android:paddingBottom="10dp"
             android:hint="AA"
             android:inputType="number"
-            android:maxEms="2"
+            android:maxLength="2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/monthExpiration"
             app:layout_constraintTop_toBottomOf="@id/tvExpiration" />
@@ -140,8 +142,8 @@
             android:paddingRight="15dp"
             android:paddingBottom="10dp"
             android:hint="3 dígitos"
+            android:maxLength="3"
             android:id="@+id/cvvCard"
-
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintLeft_toRightOf="@id/monthExpiration"
@@ -172,7 +174,7 @@
         android:paddingBottom="10dp"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
-        android:id="@+id/checkbox"
+        android:id="@+id/checkboxTermsConditions"
         android:text="He leído y acepto la política de privacidad "
         android:layout_marginTop="16dp"
         android:layout_marginLeft="32dp"
@@ -191,6 +193,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/corner_round_green_order_ok"
         android:text="Realizar pedido"
+        android:id="@+id/btnSendOrder"
         android:textColor="@color/colorWhite"
         />
 </LinearLayout>

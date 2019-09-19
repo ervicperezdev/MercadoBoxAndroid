@@ -1,18 +1,18 @@
 package com.designbyte.mercadobox.detailorder;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
-
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -26,7 +26,7 @@ import static com.designbyte.mercadobox.utils.Constants.BARRA;
 import static com.designbyte.mercadobox.utils.Constants.CERO;
 import static com.designbyte.mercadobox.utils.Constants.DOS_PUNTOS;
 
-public class DetailActivity extends AppCompatActivity {
+public class DetailActivity extends AppCompatActivity implements DetailView{
     LockableViewPager viewPager;
     CommonPagerAdapter commonPagerAdapter;
     ImageView previous, next;
@@ -39,9 +39,13 @@ public class DetailActivity extends AppCompatActivity {
     EditText noteOrder;
 
 
-    TextView numCard, nameCard, lastNameCard, monthExpiration, yearExpiration, cvvCard;
-    EditText totalCart;
+    EditText numberCard, nameCard, lastNameCard, monthExpirationCard, yearExpirationCard, cvvCard;
+    TextView totalCart;
+    CheckBox checkboxTermsConditions;
 
+
+    ProgressBar progressBar;
+    Button btnSendOrder;
     //Calendario para obtener fecha & hora
     public final Calendar c = Calendar.getInstance();
 
@@ -53,11 +57,14 @@ public class DetailActivity extends AppCompatActivity {
     final int hora = c.get(Calendar.HOUR_OF_DAY);
     final int minuto = c.get(Calendar.MINUTE);
 
+
+    DetailPresenter detailPresenter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         initViews();
+        detailPresenter = new DetailPresenter(this,new DetailInteractor());
         commonPagerAdapter = new CommonPagerAdapter();
         commonPagerAdapter.insertViewId(R.id.firstPage);
         commonPagerAdapter.insertViewId(R.id.secondPage);
@@ -110,6 +117,12 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
+        btnSendOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendOrder();
+            }
+        });
     }
 
     public void showPrevious(){
@@ -140,8 +153,17 @@ public class DetailActivity extends AppCompatActivity {
         checkboxConfirmOrder = findViewById(R.id.checkboxConfirmOrder);
         noteOrder = findViewById(R.id.noteOrder);
 
+        numberCard = findViewById(R.id.numCard);
+        nameCard = findViewById(R.id.nameCard);
+        lastNameCard = findViewById(R.id.lastNameCard);
+        monthExpirationCard = findViewById(R.id.monthExpiration);
+        yearExpirationCard = findViewById(R.id.yearExpiration);
+        cvvCard = findViewById(R.id.cvvCard);
+        totalCart = findViewById(R.id.totalCart);
+        checkboxTermsConditions = findViewById(R.id.checkboxTermsConditions);
 
-
+        progressBar = findViewById(R.id.progressBar);
+        btnSendOrder = findViewById(R.id.btnSendOrder);
     }
     private int getItemofviewpager(int i) {
         return viewPager.getCurrentItem() + i;
@@ -198,4 +220,81 @@ public class DetailActivity extends AppCompatActivity {
 
         recogerHora.show();
     }
+
+    @Override
+    public void showProgress() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgress() {
+        progressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void setAddressError() {
+        etAddress.setError("Ingresa una dirección");
+        viewPager.setCurrentItem(getItemofviewpager(-1), true);
+        showNext();
+    }
+
+    @Override
+    public void setNameCardError() {
+        nameCard.setError("Ingresa nombre de titular");
+        viewPager.setCurrentItem(getItemofviewpager(+1), true);
+        showPrevious();
+    }
+
+    @Override
+    public void setNumberCardError() {
+        numberCard.setError("Ingresa una tarjeta valida");
+        viewPager.setCurrentItem(getItemofviewpager(+1), true);
+        showPrevious();
+    }
+
+    @Override
+    public void setLastNameError() {
+        lastNameCard.setError("Ingresa el apellido");
+        viewPager.setCurrentItem(getItemofviewpager(+1), true);
+        showPrevious();
+    }
+
+    @Override
+    public void setMMCardError() {
+        monthExpirationCard.setError("Mes de expiración");
+        viewPager.setCurrentItem(getItemofviewpager(+1), true);
+        showPrevious();
+    }
+
+    @Override
+    public void setAACardError() {
+        yearExpirationCard.setError("Año de expiración");
+        viewPager.setCurrentItem(getItemofviewpager(+1), true);
+        showPrevious();
+    }
+
+    @Override
+    public void setCVVCardError() {
+        cvvCard.setError("Código de seguridad");
+        viewPager.setCurrentItem(getItemofviewpager(+1), true);
+        showPrevious();
+    }
+
+    @Override
+    public void setAceptedError() {
+        checkboxTermsConditions.setError("Debes de aceptar los términos y condiciones");
+        viewPager.setCurrentItem(getItemofviewpager(+1), true);
+        showPrevious();
+    }
+
+    @Override
+    public void onOrderShipmentCompleted() {
+        finish();
+    }
+
+    public void sendOrder(){
+        detailPresenter.sendClientsOrder(etAddress.getText().toString(),textDate.getText().toString(),textTime.getText().toString(),checkboxConfirmOrder.isChecked(),noteOrder.getText().toString(),numberCard.getText().toString(),nameCard.getText().toString(),lastNameCard.getText().toString(),monthExpirationCard.getText().toString(),yearExpirationCard.getText().toString(),cvvCard.getText().toString(),checkboxTermsConditions.isChecked(),getApplicationContext());
+    }
+
+
 }

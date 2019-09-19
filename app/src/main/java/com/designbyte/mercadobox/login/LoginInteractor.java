@@ -13,7 +13,6 @@ import com.google.firebase.auth.FirebaseAuth;
 public class LoginInteractor {
     private FirebaseAuth mAuth;
     interface OnLoginFinishedListener {
-
         void onUsernameError();
         void onPasswordError();
         void onSuccess();
