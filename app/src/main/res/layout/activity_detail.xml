@@ -52,22 +52,22 @@
         android:layout_height="60dp">
 
         <ImageView
-            android:layout_width="54dp"
-            android:layout_height="54dp"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
             android:id="@+id/previous"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            android:background="@drawable/baseline_keyboard_arrow_left_black_24dp"
+            android:background="@drawable/ic_left_arrow"
             />
         <ImageView
-            android:layout_width="54dp"
-            android:layout_height="54dp"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
             android:id="@+id/next"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:background="@drawable/baseline_keyboard_arrow_right_black_24dp"
+            android:background="@drawable/ic_right_arrow"
             />
         <TextView
             android:layout_width="wrap_content"

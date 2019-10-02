@@ -5,6 +5,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.designbyte.mercadobox.models.db.Customer;
 import com.designbyte.mercadobox.models.firebase.User;
 import com.designbyte.mercadobox.utils.MercadoBoxUtils;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -70,14 +71,13 @@ public class SigninInteractor {
         }
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
-        usuarios = database.getReference("Users");
+        usuarios = database.getReference("Customers");
 
-        final User user = new User();
+        final Customer user = new Customer();
         user.name = name;
         user.lastName = lastname;
         user.email = email;
         user.phoneNumber = phoneNumber;
-        user.termsConditions = termsConditions;
 
         mAuth.createUserWithEmailAndPassword(email,password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {

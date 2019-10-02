@@ -5,6 +5,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.designbyte.mercadobox.models.db.Customer;
 import com.designbyte.mercadobox.models.firebase.User;
 import com.designbyte.mercadobox.utils.MercadoBoxUtils;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -20,7 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 public class ProfileInteractor  {
     FirebaseAuth mAuth;
     FirebaseDatabase database;
-    DatabaseReference usuarios;
+    DatabaseReference customer;
 
     interface OnChangeFinishedListener {
         void onNameError();
@@ -37,9 +38,9 @@ public class ProfileInteractor  {
 
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
-        usuarios = database.getReference("Users");
+        customer = database.getReference("Customers");
 
-        usuarios.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+        customer.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -87,13 +88,13 @@ public class ProfileInteractor  {
         mAuth = FirebaseAuth.getInstance();
         final FirebaseUser firebaseUser = mAuth.getCurrentUser();
         database = FirebaseDatabase.getInstance();
-        usuarios = database.getReference("Users");
-        final User user = new User();
+        customer = database.getReference("Customers");
+        final Customer user = new Customer();
         user.name = name;
         user.lastName = lastname;
         user.phoneNumber = phoneNumber;
         user.email = email;
-        usuarios.child(firebaseUser.getUid()).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+        customer.child(firebaseUser.getUid()).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){

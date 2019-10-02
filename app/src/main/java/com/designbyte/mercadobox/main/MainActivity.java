@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity
     MercadoBoxPreferences mercadoBoxPreferences;
     RecyclerView recyclerCategories;
     RecyclerViewProductClickListener listener;
-    Button btnCart;
+    CardView btnCart;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

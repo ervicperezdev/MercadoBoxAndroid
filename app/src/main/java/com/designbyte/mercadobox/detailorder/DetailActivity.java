@@ -6,6 +6,7 @@ import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -15,13 +16,18 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.TimePicker;
-
+import android.widget.Toast;
 import com.designbyte.mercadobox.R;
 import com.designbyte.mercadobox.adapter.CommonPagerAdapter;
 import com.designbyte.mercadobox.detailorder.helper.LockableViewPager;
-
 import java.util.Calendar;
-
+import mx.openpay.android.Openpay;
+import mx.openpay.android.OperationCallBack;
+import mx.openpay.android.OperationResult;
+import mx.openpay.android.exceptions.OpenpayServiceException;
+import mx.openpay.android.exceptions.ServiceUnavailableException;
+import mx.openpay.android.model.Card;
+import mx.openpay.android.model.Token;
 import static com.designbyte.mercadobox.utils.Constants.BARRA;
 import static com.designbyte.mercadobox.utils.Constants.CERO;
 import static com.designbyte.mercadobox.utils.Constants.DOS_PUNTOS;
@@ -37,18 +43,13 @@ public class DetailActivity extends AppCompatActivity implements DetailView{
     EditText etAddress;
     CheckBox checkboxConfirmOrder;
     EditText noteOrder;
-
-
     EditText numberCard, nameCard, lastNameCard, monthExpirationCard, yearExpirationCard, cvvCard;
     TextView totalCart;
     CheckBox checkboxTermsConditions;
-
-
     ProgressBar progressBar;
     Button btnSendOrder;
     //Calendario para obtener fecha & hora
     public final Calendar c = Calendar.getInstance();
-
     //Variables para obtener la fecha
     final int mes = c.get(Calendar.MONTH);
     final int dia = c.get(Calendar.DAY_OF_MONTH);
@@ -56,8 +57,6 @@ public class DetailActivity extends AppCompatActivity implements DetailView{
     //Variables para obtener la hora hora
     final int hora = c.get(Calendar.HOUR_OF_DAY);
     final int minuto = c.get(Calendar.MINUTE);
-
-
     DetailPresenter detailPresenter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -292,9 +291,19 @@ public class DetailActivity extends AppCompatActivity implements DetailView{
         finish();
     }
 
+    @Override
+    public void showMessage(String str) {
+        Toast.makeText(this,str,Toast.LENGTH_LONG).show();
+    }
+
     public void sendOrder(){
+        pay();
         detailPresenter.sendClientsOrder(etAddress.getText().toString(),textDate.getText().toString(),textTime.getText().toString(),checkboxConfirmOrder.isChecked(),noteOrder.getText().toString(),numberCard.getText().toString(),nameCard.getText().toString(),lastNameCard.getText().toString(),monthExpirationCard.getText().toString(),yearExpirationCard.getText().toString(),cvvCard.getText().toString(),checkboxTermsConditions.isChecked(),getApplicationContext());
     }
 
+    public void pay(){
+
+
+    }
 
 }

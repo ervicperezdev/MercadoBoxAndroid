@@ -34,7 +34,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:textSize="10sp"
-        android:drawableRight="@drawable/ic_mode_edit_black_18dp"
+        android:drawableRight="@drawable/ic_edit"
         android:id="@+id/etAddress"
         />
     <LinearLayout

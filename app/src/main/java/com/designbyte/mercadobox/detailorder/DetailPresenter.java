@@ -2,10 +2,6 @@ package com.designbyte.mercadobox.detailorder;
 
 import android.content.Context;
 
-import com.designbyte.mercadobox.models.db.Cart;
-
-import java.util.List;
-
 public class DetailPresenter implements DetailInteractor.OnDetailListener {
 
     DetailView detailView;
@@ -106,8 +102,15 @@ public class DetailPresenter implements DetailInteractor.OnDetailListener {
     @Override
     public void orderShipmentCompleted() {
         if(detailView != null){
-            detailView.hideProgress();
             detailView.onOrderShipmentCompleted();
+        }
+    }
+
+    @Override
+    public void chargeCard(String address, String numberCard, String nameCard, String lastNameCard, String monthExpirationCard, String yearExpirationCard, String cvvCard, Context context) {
+        if(detailView != null){
+            detailInteractor.chargeCard(address,numberCard,nameCard,lastNameCard,monthExpirationCard,yearExpirationCard,cvvCard,context,this);
+            detailView.hideProgress();
         }
     }
 }

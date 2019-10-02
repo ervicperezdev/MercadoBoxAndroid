@@ -12,4 +12,6 @@ public interface DetailView {
     void setCVVCardError();
     void setAceptedError();
     void onOrderShipmentCompleted();
+
+    void showMessage(String str);
 }
