@@ -34,4 +34,17 @@ public class Order {
     @SerializedName("products")
     @Expose
     public List<Cart> products;
+
+    public float getTotal(){
+        float total = 0;
+        for (Cart item : products
+             ) {
+            total += (item.quantity*item.costByUnit);
+        }
+        return total;
+    }
+
+    public float getIVA(){
+        return getTotal()*0.16f;
+    }
 }

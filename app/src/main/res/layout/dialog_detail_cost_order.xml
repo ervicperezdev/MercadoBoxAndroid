@@ -8,7 +8,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Recibo del pedido"
+        android:text="Detalle del pedido"
         android:layout_margin="20dp"
         android:gravity="center"
         android:textColor="@color/TextColorBlack"
@@ -49,62 +49,61 @@
                 android:orientation="horizontal"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
-                android:layout_weight="2"
+                android:layout_weight="8"
                 >
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:layout_weight="5"
                     android:text="Subtotal"
+                    android:textStyle="bold"
                     android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="$"
+                    android:textStyle="bold"
+                    android:gravity="center_vertical|right"
+                    android:layout_height="wrap_content" />
+
                 <TextView
                     android:textColor="@color/TextColorGrey"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:gravity="right"
+                    android:textStyle="bold"
                     android:layout_height="wrap_content"
                     android:id="@+id/tvSubtotal"
                     />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
-                android:layout_weight="2"
+                android:layout_weight="8"
                 >
                 <TextView
                     android:layout_width="0dp"
+                    android:layout_weight="5"
+                    android:text="IVA"
+                    android:textStyle="bold"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:text="Comisión de envío"
+                    android:text="$"
+                    android:textStyle="bold"
+                    android:gravity="center_vertical|right"
                     android:layout_height="wrap_content" />
                 <TextView
                     android:textColor="@color/TextColorGrey"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:gravity="right"
-                    android:id="@+id/tvCostoEnvio"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:layout_weight="2"
-                >
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:text="Descuento"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:textColor="@color/TextColorGrey"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:gravity="right"
-                    android:id="@+id/tvDescuento"
+                    android:id="@+id/tvIVA"
+                    android:textStyle="bold"
                     android:layout_height="wrap_content" />
             </LinearLayout>
             <View
@@ -118,19 +117,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:layout_weight="2"
+                android:layout_weight="8"
                 >
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:layout_weight="5"
                     android:text="Total"
+                    android:textStyle="bold"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="$"
+                    android:textStyle="bold"
+                    android:gravity="center_vertical|right"
                     android:layout_height="wrap_content" />
                 <TextView
                     android:textColor="@color/TextColorGrey"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:gravity="right"
                     android:id="@+id/tvTotal"
+                    android:textStyle="bold"
                     android:layout_height="wrap_content" />
             </LinearLayout>
         </LinearLayout>

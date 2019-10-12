@@ -13,6 +13,7 @@ import com.designbyte.mercadobox.R;
 import com.designbyte.mercadobox.models.db.Cart;
 import com.designbyte.mercadobox.orderhistory.viewHolder.ItemDetailViewHolder;
 
+import java.text.NumberFormat;
 import java.util.List;
 
 public class AdapterDetailOrder extends RecyclerView.Adapter<ItemDetailViewHolder> {
@@ -35,11 +36,14 @@ public class AdapterDetailOrder extends RecyclerView.Adapter<ItemDetailViewHolde
 
     @Override
     public void onBindViewHolder(@NonNull ItemDetailViewHolder holder, int position) {
-        holder.name.setText(items.get(position).name);
-        totalProduct = 0;
-        subTotalProduct = 0;
+        holder.name.setText(String.format("%s %s(s) de %s",items.get(position).quantity, items.get(position).unity,items.get(position).name));
 
-        holder.quantity.setText(String.format("%sX",items.get(position).quantity));
+
+        NumberFormat formatter = NumberFormat.getNumberInstance();
+        formatter.setMinimumFractionDigits(2);
+        formatter.setMaximumFractionDigits(2);
+        holder.totalProduct.setText(formatter.format(items.get(position).quantity*items.get(position).costByUnit));
+
     }
 
     @Override
