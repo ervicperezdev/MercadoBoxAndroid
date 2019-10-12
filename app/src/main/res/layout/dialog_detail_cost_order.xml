@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Recibo del pedido"
+        android:layout_margin="20dp"
+        android:gravity="center"
+        android:textColor="@color/TextColorBlack"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorLineDetailOrder"
+        />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            >
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/listDetailProduct"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </android.support.v7.widget.RecyclerView>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/colorLine2DetailOrder"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="2"
+                >
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="Subtotal"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:textColor="@color/TextColorGrey"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvSubtotal"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="2"
+                >
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="Comisión de envío"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:textColor="@color/TextColorGrey"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:id="@+id/tvCostoEnvio"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="2"
+                >
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="Descuento"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:textColor="@color/TextColorGrey"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:id="@+id/tvDescuento"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/colorLineDetailOrder"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_weight="2"
+                >
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="Total"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:textColor="@color/TextColorGrey"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:id="@+id/tvTotal"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorLineDetailOrder"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="CERRAR"
+            android:padding="20dp"
+            android:gravity="center"
+            android:id="@+id/tvCerrar"
+            android:textColor="@color/TextColorBlack"
+            />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
