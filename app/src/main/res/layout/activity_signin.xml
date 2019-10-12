@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="20dp"
+    android:background="@color/colorWhite"
     tools:context=".signin.SigninActivity">
 
     <ImageView
@@ -54,6 +55,7 @@
             android:id="@+id/phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="number"
             android:hint="Numero" />
 
         <EditText

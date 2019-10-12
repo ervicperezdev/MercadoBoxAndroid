@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.designbyte.mercadobox">
 
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" ></uses-permission>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,7 +13,10 @@
         android:roundIcon="@drawable/logomercadobox"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".orderhistory.OrderHistoryActivity"></activity>
+        <activity
+            android:parentActivityName=".main.MainActivity"
+            android:label="Historial de pedidos"
+            android:name=".orderhistory.OrderHistoryActivity"></activity>
         <activity
             android:name=".detailorder.DetailActivity"
             android:label="Detalle de compra"

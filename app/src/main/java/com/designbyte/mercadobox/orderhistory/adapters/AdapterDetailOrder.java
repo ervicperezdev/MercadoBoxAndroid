@@ -1,26 +1,26 @@
-package com.kuppa.kuppa.Adapters;
+package com.designbyte.mercadobox.orderhistory.adapters;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.kuppa.kuppa.Model.Cart.CartExtra;
-import com.kuppa.kuppa.Model.Cart.CartIngredient;
-import com.kuppa.kuppa.Model.Cart.CartProduct;
-import com.kuppa.kuppa.R;
-import com.kuppa.kuppa.ViewHolder.ItemDetailViewHolder;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.designbyte.mercadobox.R;
+import com.designbyte.mercadobox.models.db.Cart;
+import com.designbyte.mercadobox.orderhistory.viewHolder.ItemDetailViewHolder;
 
 import java.util.List;
 
-public class ItemDetailOrderAdapter extends RecyclerView.Adapter<ItemDetailViewHolder> {
-    List<CartProduct> items;
+public class AdapterDetailOrder extends RecyclerView.Adapter<ItemDetailViewHolder> {
+    List<Cart> items;
     Context context;
     String textExtras;
     int totalProduct, subTotalProduct;
-    public ItemDetailOrderAdapter(List<CartProduct> items, Context context) {
+    public AdapterDetailOrder(List<Cart> items, Context context) {
         this.items = items;
         this.context = context;
     }
@@ -35,21 +35,11 @@ public class ItemDetailOrderAdapter extends RecyclerView.Adapter<ItemDetailViewH
 
     @Override
     public void onBindViewHolder(@NonNull ItemDetailViewHolder holder, int position) {
-        holder.tvName.setText(items.get(position).getProductName());
+        holder.name.setText(items.get(position).name);
         totalProduct = 0;
         subTotalProduct = 0;
-        String textExtras = "";
-        if(items.get(position).getExtras() != null) {
-            for (CartExtra cartExtra : items.get(position).getExtras()) {
-                for (CartIngredient cartIngredient : cartExtra.getListIngredients()) {
-                    textExtras += cartIngredient.getName() + "(" + String.format("$%s.00", cartIngredient.getPrice() * Integer.valueOf(items.get(position).getQuantity())) + ")" + "\n";
-                    subTotalProduct += cartIngredient.getPrice();
-                }
-            }
-        }
-        holder.totalProduct.setText(String.format("$%s.00",(Integer.valueOf(items.get(position).getPrice())+subTotalProduct)*Integer.valueOf(items.get(position).getQuantity())));
-        holder.tvQuantity.setText(items.get(position).getQuantity()+"X");
-        holder.tvExtras.setText(textExtras);
+
+        holder.quantity.setText(String.format("%sX",items.get(position).quantity));
     }
 
     @Override

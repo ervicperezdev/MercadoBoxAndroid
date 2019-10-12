@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.designbyte.mercadobox.R;
 import com.designbyte.mercadobox.main.viewHolder.ViewHolderProduct;
+import com.designbyte.mercadobox.models.db.Cart;
 import com.designbyte.mercadobox.models.firebase.Order;
 import com.designbyte.mercadobox.orderhistory.listener.RecyclerViewOrderClickListener;
 import com.designbyte.mercadobox.orderhistory.viewHolder.ViewHolderOrder;
@@ -38,10 +39,11 @@ public class AdapterOrders extends RecyclerView.Adapter<ViewHolderOrder> {
     @Override
     public void onBindViewHolder(@NonNull final ViewHolderOrder holder, final int position) {
         holder.name.setText(orderList.get(position).name);
+        holder.folioOrder.setText(String.format("Pedido %s",orderList.get(position).idOrder));
         holder.date.setText(orderList.get(position).date);
-        holder.status.setText(orderList.get(position).status);
-        holder.total.setText("totaaal");
-        holder.numProducts.setText("Articulos "+orderList.get(position).products.size());
+        holder.status.setText(String.format("%s",orderList.get(position).status));
+        holder.total.setText(String.format("Total $%s",calculaTotal(orderList.get(position).products)));
+        holder.numProducts.setText(String.format("Articulos %s",orderList.get(position).products.size()));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,5 +56,14 @@ public class AdapterOrders extends RecyclerView.Adapter<ViewHolderOrder> {
     @Override
     public int getItemCount() {
         return orderList!=null?orderList.size():0;
+    }
+
+    private float calculaTotal(List<Cart> items){
+        float total = 0;
+        for (Cart item : items
+             ) {
+            total += (item.quantity*item.costByUnit);
+        }
+        return total;
     }
 }

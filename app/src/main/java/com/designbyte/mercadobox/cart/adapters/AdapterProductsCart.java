@@ -76,6 +76,7 @@ public class AdapterProductsCart extends RecyclerView.Adapter<ViewHolderProducts
                 holder.mListener.onClick(v,position,productCartList.get(position).id);
                 deleteItem(position);
                 holder.mListener.onCostTotalChange(db.cartDao().getTotal());
+                notifyDataSetChanged();
 
             }
         });

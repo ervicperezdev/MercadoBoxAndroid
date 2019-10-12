@@ -99,6 +99,7 @@ public class MainInteractor {
         }else{
             listener.hideCart();
         }
+        db.close();
     }
 
 

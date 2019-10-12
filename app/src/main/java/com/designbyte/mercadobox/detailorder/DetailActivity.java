@@ -58,12 +58,16 @@ public class DetailActivity extends AppCompatActivity implements DetailView{
     final int hora = c.get(Calendar.HOUR_OF_DAY);
     final int minuto = c.get(Calendar.MINUTE);
     DetailPresenter detailPresenter;
+    DetailInteractor detailInteractor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         initViews();
-        detailPresenter = new DetailPresenter(this,new DetailInteractor());
+        detailInteractor = new DetailInteractor();
+        detailInteractor.activity = this;
+        detailInteractor.context = this;
+        detailPresenter = new DetailPresenter(this,detailInteractor);
         commonPagerAdapter = new CommonPagerAdapter();
         commonPagerAdapter.insertViewId(R.id.firstPage);
         commonPagerAdapter.insertViewId(R.id.secondPage);

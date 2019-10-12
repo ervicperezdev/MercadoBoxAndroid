@@ -2,6 +2,7 @@ package com.designbyte.mercadobox.login;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -20,13 +21,16 @@ public class LoginActivity extends AppCompatActivity implements LoginView{
     EditText username, password;
     Button btnLogin, btnSignin;
     LoginPresenter presenter;
+    LoginInteractor loginInteractor;
     MercadoBoxPreferences mercadoBoxPreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         initViews();
-        presenter = new LoginPresenter(this,new LoginInteractor());
+        loginInteractor = new LoginInteractor();
+        loginInteractor.context = this;
+        presenter = new LoginPresenter(this,loginInteractor);
         mercadoBoxPreferences = new MercadoBoxPreferences(this);
     }
 

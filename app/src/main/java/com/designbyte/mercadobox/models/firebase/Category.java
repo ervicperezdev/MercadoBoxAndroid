@@ -13,6 +13,11 @@ public class Category {
     @SerializedName("nameCategory")
     @Expose
     public String nameCategory;
+
+    @SerializedName("color")
+    @Expose
+    public String color;
+
     @SerializedName("products")
     @Expose
     public List<Product> products = new ArrayList<>();

@@ -27,4 +27,15 @@
     <color name="colorTextDetailPayment">#0C0B0B</color>
 
     <color name="colorTextTotalCart">#08707070</color>
+
+
+
+    <color name="TextColorBlack">#000000</color>
+    <color name="colorPriceExtras">#828282</color>
+    <color name="colorLineDetailOrder">@color/colorPriceExtras</color>
+    <color name="grey_500">#9E9E9E</color>
+    <color name="colorLine2DetailOrder">@color/grey_500</color>
+    <color name="TextColorGrey">#4A4A4A</color>
+
+
 </resources>

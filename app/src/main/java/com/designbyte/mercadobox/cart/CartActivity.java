@@ -1,5 +1,6 @@
 package com.designbyte.mercadobox.cart;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,6 +31,8 @@ public class CartActivity extends AppCompatActivity implements CartView{
     RecyclerViewCartClickListener listener;
     TextView textViewTotalCart;
     Button btnContinue;
+
+    final static int ORDER_COMPLETED = 111;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,14 +43,12 @@ public class CartActivity extends AppCompatActivity implements CartView{
             @Override
             public void onClick(View view, int position, int id) {
                 if(view.getId() == R.id.deleteProduct){
-                    Toast.makeText(getApplicationContext(),"Producto eliminado",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"Producto eliminado",Toast.LENGTH_SHORT).show();
                     cartPresenter.deleteItemById(getApplicationContext(),id);
                 }else if(view.getId() == R.id.less){
-                    Toast.makeText(getApplicationContext(),"Menos",Toast.LENGTH_LONG).show();
                     cartPresenter.updateItemCart(Constants.PRODUCT_LESS,id,getApplicationContext());
 
                 }else if(view.getId() == R.id.plus){
-                    Toast.makeText(getApplicationContext(),"Más",Toast.LENGTH_LONG).show();
                     cartPresenter.updateItemCart(Constants.PRODUCT_PLUS,id,getApplicationContext());
                 }
             }
@@ -111,6 +112,18 @@ public class CartActivity extends AppCompatActivity implements CartView{
 
 
     public void goToDetailOrder(){
-        startActivity(new Intent(CartActivity.this, DetailActivity.class));
+
+        startActivityForResult(new Intent(CartActivity.this, DetailActivity.class),ORDER_COMPLETED);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK){
+
+        }else{
+
+        }
+
     }
 }

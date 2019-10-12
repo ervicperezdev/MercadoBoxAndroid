@@ -25,7 +25,7 @@
     
     <string name="location_url_openpay">https://sandbox-api.openpay.mx/v1/</string>
     <string name="merchant_id">mtlxdpy7ylf8yiqkufkq</string>
-    <string name="public_api_key_openpay">pk_62d59abf60ff4a01a4817a3c14ac045a</string>
+    <string name="public_api_key_openpay">sk_ee7047a3a2a1462f992dd741ee8ae3a5</string>
     <string name="holder_name">Titular</string>
     <string name="card_number">Número de tarjeta</string>
     <string name="cvv">CVV2</string>

@@ -8,10 +8,13 @@ import com.designbyte.mercadobox.cart.CartActivity;
 import com.designbyte.mercadobox.main.adapters.AdapterCategories;
 import com.designbyte.mercadobox.main.listener.RecyclerViewProductClickListener;
 import com.designbyte.mercadobox.models.firebase.Category;
+import com.designbyte.mercadobox.orderhistory.OrderHistoryActivity;
 import com.designbyte.mercadobox.profile.ProfileActivity;
 import com.designbyte.mercadobox.splash.SplashActivity;
 import com.designbyte.mercadobox.utils.Constants;
 import com.designbyte.mercadobox.utils.MercadoBoxPreferences;
+
+import android.view.Gravity;
 import android.view.View;
 
 import androidx.cardview.widget.CardView;
@@ -60,16 +63,19 @@ public class MainActivity extends AppCompatActivity
                 if(view.getId() == R.id.btnAdd){
 
                     updateCart(Constants.PRODUCT_ADD,idCategory,position);
-                    Toast.makeText(MainActivity.this,String.format("producto agregado categoria: %s",idCategory),Toast.LENGTH_LONG).show();
-                    showButtonCart();
+                    Toast toast = Toast.makeText(MainActivity.this,String.format("Producto agregado al carrito"),Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                    toast.show();
                 }else if(view.getId() == R.id.less){
                     updateCart(Constants.PRODUCT_LESS,idCategory,position);
+                    showButtonCart();
 
-                    Toast.makeText(MainActivity.this,String.format("less %s",idCategory),Toast.LENGTH_LONG).show();
+                    //Toast.makeText(MainActivity.this,String.format("less %s",idCategory),Toast.LENGTH_LONG).show();
                 }else if(view.getId() == R.id.plus){
                     updateCart(Constants.PRODUCT_PLUS,idCategory,position);
+                    showButtonCart();
 
-                    Toast.makeText(MainActivity.this,String.format("plus %s",idCategory),Toast.LENGTH_LONG).show();
+                    //Toast.makeText(MainActivity.this,String.format("plus %s",idCategory),Toast.LENGTH_LONG).show();
                 }
             }
 
@@ -83,6 +89,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
         showButtonCart();
+
     }
 
     public void initViews(){
@@ -133,8 +140,8 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_profile) {
             goToProfile();
-        //} else if (id == R.id.nav_orderhistory) {
-
+        } else if (id == R.id.nav_orderhistory) {
+            goToHistory();
         } else if (id == R.id.nav_address) {
 
         } else if (id == R.id.nav_preferences) {
@@ -151,7 +158,7 @@ public class MainActivity extends AppCompatActivity
         startActivity(new Intent(MainActivity.this, ProfileActivity.class));
     }
     public void goToHistory(){
-        //startActivity(new Intent(MainActivity.this, OrderHistoryActivity.class));
+        startActivity(new Intent(MainActivity.this, OrderHistoryActivity.class));
     }
     public void goToAddress(){
         //startActivity(new Intent(MainActivity.this, AddressActivity.class));
@@ -207,6 +214,7 @@ public class MainActivity extends AppCompatActivity
 
     public void updateCart(int event, int idCategory, int idProduct){
         mainPresenter.updateItemCart(event,idCategory,idProduct,this);
+        mainPresenter.showCart();
     }
 
     public void showButtonCart(){

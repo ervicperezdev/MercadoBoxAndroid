@@ -21,13 +21,16 @@ public class SigninActivity extends AppCompatActivity implements SigninView {
     Button btnSignin;
     ProgressBar progressBar;
     SigninPresenter presenter;
+    SigninInteractor signinInteractor;
     MercadoBoxPreferences mercadoBoxPreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin);
         initViews();
-        presenter = new SigninPresenter(this, new SigninInteractor());
+        signinInteractor = new SigninInteractor();
+        signinInteractor.context = this;
+        presenter = new SigninPresenter(this, signinInteractor);
         mercadoBoxPreferences = new MercadoBoxPreferences(this);
     }
 

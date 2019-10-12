@@ -22,6 +22,15 @@ public class Order {
     @Expose
     public String date;
 
+    @SerializedName("address")
+    @Expose
+    public String address;
+
+
+    @SerializedName("uidUser")
+    @Expose
+    public String uidUser;
+
     @SerializedName("products")
     @Expose
     public List<Cart> products;

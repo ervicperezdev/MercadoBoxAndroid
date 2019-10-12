@@ -1,10 +1,12 @@
 package com.designbyte.mercadobox.signin;
 
+import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.designbyte.mercadobox.R;
 import com.designbyte.mercadobox.models.db.Customer;
 import com.designbyte.mercadobox.models.firebase.User;
 import com.designbyte.mercadobox.utils.MercadoBoxUtils;
@@ -17,11 +19,16 @@ import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import mx.openpay.client.core.OpenpayAPI;
+import mx.openpay.client.exceptions.OpenpayServiceException;
+import mx.openpay.client.exceptions.ServiceUnavailableException;
+
 public class SigninInteractor {
     FirebaseAuth mAuth;
     FirebaseDatabase database;
     DatabaseReference usuarios;
-
+    Context context;
+    Customer user;
     interface OnSigninFinishedListener {
         void onNameError();
         void onLastNameError();
@@ -73,22 +80,41 @@ public class SigninInteractor {
         database = FirebaseDatabase.getInstance();
         usuarios = database.getReference("Customers");
 
-        final Customer user = new Customer();
+
+
+        //Customer de Firebase y base de datos
+        user = new Customer();
         user.name = name;
         user.lastName = lastname;
         user.email = email;
         user.phoneNumber = phoneNumber;
-
         mAuth.createUserWithEmailAndPassword(email,password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
+                            /*
+                            OpenpayAPI openpayAPI = new OpenpayAPI(context.getString(R.string.location_url_openpay),context.getString(R.string.public_api_key_openpay),context.getString(R.string.merchant_id));
+                            mx.openpay.client.Customer customerOpenPay = new mx.openpay.client.Customer();
+                            customerOpenPay.email(email);
+                            customerOpenPay.lastName(lastname);
+                            customerOpenPay.name(name);
+                            customerOpenPay.phoneNumber(phoneNumber);
+                            try {
+                                mx.openpay.client.Customer customerRequest = openpayAPI.customers().create(customerOpenPay);
+                                    user.customerId = customerRequest.getId();
+                            } catch (OpenpayServiceException e) {
+                                e.printStackTrace();
+                            } catch (ServiceUnavailableException e) {
+                                e.printStackTrace();
+                            }
+*/
                             usuarios.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                     .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if(task.isSuccessful()){
+
                                         listener.onSuccess();
                                     }else{
                                         Log.d("SigninInteractor",task.getException().getMessage());

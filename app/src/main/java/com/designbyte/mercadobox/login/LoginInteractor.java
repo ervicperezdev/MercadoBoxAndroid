@@ -1,9 +1,11 @@
 package com.designbyte.mercadobox.login;
 
+import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 import androidx.annotation.NonNull;
 
+import com.designbyte.mercadobox.models.db.AppDatabase;
 import com.designbyte.mercadobox.models.db.Customer;
 import com.designbyte.mercadobox.utils.MercadoBoxUtils;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -16,10 +18,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import static androidx.room.Room.databaseBuilder;
+
 public class LoginInteractor {
     FirebaseAuth mAuth;
     FirebaseDatabase database;
     DatabaseReference customer;
+    Context context;
+    AppDatabase db;
     interface OnLoginFinishedListener {
         void onUsernameError();
         void onPasswordError();
@@ -42,6 +48,8 @@ public class LoginInteractor {
         mAuth = FirebaseAuth.getInstance();
 
 
+        db = databaseBuilder(context,
+                AppDatabase.class, "mbdb").allowMainThreadQueries().build();
 
 
         mAuth.signInWithEmailAndPassword(username, password)
@@ -49,12 +57,14 @@ public class LoginInteractor {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Customer loginCustomer = new Customer();
 
                             customer.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
+                                    if(dataSnapshot.exists()){
+                                        db.customerDao().deleteAll();
+                                        db.customerDao().insertItem(dataSnapshot.getValue(Customer.class));
+                                    }
                                 }
 
                                 @Override
@@ -71,6 +81,8 @@ public class LoginInteractor {
 
                     }
                 });
+        db.close();
+
     }
 
 
