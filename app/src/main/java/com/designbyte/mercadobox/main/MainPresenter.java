@@ -1,6 +1,8 @@
 package com.designbyte.mercadobox.main;
 
 import android.content.Context;
+
+import com.designbyte.mercadobox.models.db.Cart;
 import com.designbyte.mercadobox.models.firebase.Category;
 import java.util.List;
 
@@ -56,9 +58,9 @@ public class MainPresenter implements MainInteractor.OnMainListener {
     }
 
     @Override
-    public void showCart() {
+    public void showCart(List<Cart> items) {
         if(mainView != null){
-            mainView.showButtonBottomCart();
+            mainView.showButtonBottomCart(items);
         }
     }
 

@@ -34,7 +34,7 @@ public class MainInteractor {
         void onLogout();
         void setDataCategories(List<Category> items);
         void onCompleteUpdated();
-        void showCart();
+        void showCart(List<Cart> items);
         void hideCart();
 
     }
@@ -95,7 +95,7 @@ public class MainInteractor {
                 AppDatabase.class, "mbdb").allowMainThreadQueries().build();
         List<Cart> cartList = db.cartDao().getItemsCart();
         if(!cartList.isEmpty()){
-            listener.showCart();
+            listener.showCart(cartList);
         }else{
             listener.hideCart();
         }

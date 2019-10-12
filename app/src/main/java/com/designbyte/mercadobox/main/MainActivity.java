@@ -7,6 +7,7 @@ import com.designbyte.mercadobox.R;
 import com.designbyte.mercadobox.cart.CartActivity;
 import com.designbyte.mercadobox.main.adapters.AdapterCategories;
 import com.designbyte.mercadobox.main.listener.RecyclerViewProductClickListener;
+import com.designbyte.mercadobox.models.db.Cart;
 import com.designbyte.mercadobox.models.firebase.Category;
 import com.designbyte.mercadobox.orderhistory.OrderHistoryActivity;
 import com.designbyte.mercadobox.profile.ProfileActivity;
@@ -32,8 +33,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.Menu;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.NumberFormat;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
@@ -48,6 +51,8 @@ public class MainActivity extends AppCompatActivity
     RecyclerView recyclerCategories;
     RecyclerViewProductClickListener listener;
     CardView btnCart;
+    TextView textTotalCart, productCount;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,6 +103,9 @@ public class MainActivity extends AppCompatActivity
         progressBar = findViewById(R.id.progressBar);
         recyclerCategories = findViewById(R.id.recyclerCategories);
         btnCart = findViewById(R.id.btnCart);
+        productCount = findViewById(R.id.productCount);
+        textTotalCart = findViewById(R.id.textTotalCart);
+
     }
 
     @Override
@@ -194,8 +202,11 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void showButtonBottomCart() {
+    public void showButtonBottomCart(List<Cart> items) {
         btnCart.setVisibility(View.VISIBLE);
+        if(items != null)
+        textTotalCart.setText(calculaTotal(items));
+        productCount.setText(String.format("%s",items != null ? items.size():""));
     }
 
     @Override
@@ -208,13 +219,27 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+
+    public String calculaTotal(List<Cart> items){
+        NumberFormat formatter = NumberFormat.getNumberInstance();
+        formatter.setMinimumFractionDigits(2);
+        formatter.setMaximumFractionDigits(2);
+
+        float total = 0;
+
+        for (Cart item: items
+             ) {
+            total += (item.quantity*item.costByUnit);
+        }
+        return formatter.format(total);
+    }
     public void loadDataCategories(){
         mainPresenter.loadDataCategories();
     }
 
     public void updateCart(int event, int idCategory, int idProduct){
         mainPresenter.updateItemCart(event,idCategory,idProduct,this);
-        mainPresenter.showCart();
+        //mainPresenter.showCart();
     }
 
     public void showButtonCart(){
