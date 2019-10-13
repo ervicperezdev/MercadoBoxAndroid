@@ -1,6 +1,10 @@
 package com.designbyte.mercadobox.main;
 
+import android.app.Activity;
+import android.app.ActivityOptions;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.designbyte.mercadobox.R;
@@ -18,6 +22,7 @@ import com.designbyte.mercadobox.utils.MercadoBoxPreferences;
 import android.view.Gravity;
 import android.view.View;
 
+import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import android.view.MenuItem;
@@ -52,7 +57,8 @@ public class MainActivity extends AppCompatActivity
     RecyclerViewProductClickListener listener;
     CardView btnCart;
     TextView textTotalCart, productCount;
-
+    final static int ORDER_COMPLETED = 111;
+    Activity activity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +68,7 @@ public class MainActivity extends AppCompatActivity
         mercadoBoxPreferences = new MercadoBoxPreferences(this);
         mainPresenter = new MainPresenter(this,new MainInteractor());
         database = FirebaseDatabase.getInstance();
+        activity = this;
         listener = new RecyclerViewProductClickListener() {
             @Override
             public void onClick(View view, int position, int idCategory) {
@@ -90,7 +97,12 @@ public class MainActivity extends AppCompatActivity
         btnCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, CartActivity.class));
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    startActivityForResult(new Intent(MainActivity.this, CartActivity.class), ORDER_COMPLETED, ActivityOptions.makeSceneTransitionAnimation(activity).toBundle());
+                }else{
+                    startActivityForResult(new Intent(MainActivity.this, CartActivity.class), ORDER_COMPLETED);
+
+                }
             }
         });
         showButtonCart();
@@ -163,10 +175,20 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void goToProfile(){
-        startActivity(new Intent(MainActivity.this, ProfileActivity.class));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            startActivity(new Intent(MainActivity.this, ProfileActivity.class),ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+        }else{
+            startActivity(new Intent(MainActivity.this, ProfileActivity.class));
+
+        }
     }
     public void goToHistory(){
-        startActivity(new Intent(MainActivity.this, OrderHistoryActivity.class));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            startActivity(new Intent(MainActivity.this, OrderHistoryActivity.class),ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+        }else{
+            startActivity(new Intent(MainActivity.this, OrderHistoryActivity.class));
+
+        }
     }
     public void goToAddress(){
         //startActivity(new Intent(MainActivity.this, AddressActivity.class));
@@ -180,7 +202,12 @@ public class MainActivity extends AppCompatActivity
         mercadoBoxPreferences.saveSharedSetting("logged",false);
         mercadoBoxPreferences.saveSharedSetting("email","");
         mercadoBoxPreferences.saveSharedSetting("passwd","");
-        startActivity(new Intent(MainActivity.this,SplashActivity.class));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            startActivity(new Intent(MainActivity.this,SplashActivity.class),ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+        }else{
+            startActivity(new Intent(MainActivity.this,SplashActivity.class));
+
+        }
         finish();
     }
 
@@ -245,4 +272,16 @@ public class MainActivity extends AppCompatActivity
     public void showButtonCart(){
         mainPresenter.showButtonCart(this);
     }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == ORDER_COMPLETED && resultCode == RESULT_OK){
+            loadDataCategories();
+            showButtonCart();
+        }
+    }
+
 }

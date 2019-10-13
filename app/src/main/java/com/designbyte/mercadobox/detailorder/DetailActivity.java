@@ -292,6 +292,7 @@ public class DetailActivity extends AppCompatActivity implements DetailView{
 
     @Override
     public void onOrderShipmentCompleted() {
+        setResult(RESULT_OK);
         finish();
     }
 

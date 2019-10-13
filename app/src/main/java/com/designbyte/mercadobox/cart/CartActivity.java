@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -113,14 +114,17 @@ public class CartActivity extends AppCompatActivity implements CartView{
 
     public void goToDetailOrder(){
 
-        startActivityForResult(new Intent(CartActivity.this, DetailActivity.class),ORDER_COMPLETED);
+        startActivityForResult(new Intent(CartActivity.this, DetailActivity.class),ORDER_COMPLETED, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == RESULT_OK){
-
+            if(requestCode == ORDER_COMPLETED) {
+                setResult(RESULT_OK);
+                finish();
+            }
         }else{
 
         }

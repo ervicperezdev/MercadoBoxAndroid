@@ -2,8 +2,10 @@ package com.designbyte.mercadobox.login;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -79,7 +81,12 @@ public class LoginActivity extends AppCompatActivity implements LoginView{
         mercadoBoxPreferences.saveSharedSetting("logged",true);
         mercadoBoxPreferences.saveSharedSetting("email",username.getText().toString());
         mercadoBoxPreferences.saveSharedSetting("passwd",password.getText().toString());
-        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            startActivity(new Intent(LoginActivity.this, MainActivity.class), ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+        }else{
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+
+        }
         finish();
     }
 
@@ -90,7 +97,12 @@ public class LoginActivity extends AppCompatActivity implements LoginView{
     }
 
     public void goToSigin(){
-        startActivity(new Intent(LoginActivity.this, SigninActivity.class));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            startActivity(new Intent(LoginActivity.this, SigninActivity.class), ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+        }else{
+            startActivity(new Intent(LoginActivity.this, SigninActivity.class));
+
+        }
     }
 
     public void validateCredentials(){
