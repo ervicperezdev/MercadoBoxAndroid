@@ -35,6 +35,13 @@ public class Order {
     @Expose
     public List<Cart> products;
 
+    @SerializedName("noteOrder")
+    @Expose
+    public String noteOrder;
+
+    @SerializedName("confirmationCall")
+    public Boolean confirmationCall;
+
     public float getTotal(){
         float total = 0;
         for (Cart item : products

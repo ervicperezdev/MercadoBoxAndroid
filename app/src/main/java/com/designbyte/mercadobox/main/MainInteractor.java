@@ -62,6 +62,8 @@ public class MainInteractor {
                         newCart.description = "";
                         db.cartDao().insertItem(newCart);
                         listener.onCompleteUpdated();
+                        listener.showCart(db.cartDao().getItemsCart());
+
                     }
 
                     @Override
@@ -69,6 +71,7 @@ public class MainInteractor {
 
                     }
                 });
+
                 break;
             case Constants.PRODUCT_LESS:
                 item.quantity--;
@@ -76,11 +79,15 @@ public class MainInteractor {
                     item.quantity = 1;
                 db.cartDao().updateItem(item);
                 listener.onCompleteUpdated();
+                listener.showCart(db.cartDao().getItemsCart());
+
                 break;
             case Constants.PRODUCT_PLUS:
                 item.quantity++;
                 db.cartDao().updateItem(item);
                 listener.onCompleteUpdated();
+                listener.showCart(db.cartDao().getItemsCart());
+
                 break;
             case Constants.PRODUCT_REMOVE:
                 db.cartDao().deleteItem(item);

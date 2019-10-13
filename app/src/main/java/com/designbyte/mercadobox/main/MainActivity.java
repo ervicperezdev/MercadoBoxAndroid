@@ -231,7 +231,7 @@ public class MainActivity extends AppCompatActivity
              ) {
             total += (item.quantity*item.costByUnit);
         }
-        return formatter.format(total);
+        return "$"+formatter.format(total);
     }
     public void loadDataCategories(){
         mainPresenter.loadDataCategories();

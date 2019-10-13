@@ -199,6 +199,8 @@ public class DetailInteractor {
         order.products = db.cartDao().getItemsCart();
         order.idOrder = Integer.valueOf(String.valueOf(maxId +1));
         order.uidUser = FirebaseAuth.getInstance().getUid();
+        order.noteOrder = noteOrder;
+        order.confirmationCall = confirmationCall;
         orderHistory.push().setValue(order)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
