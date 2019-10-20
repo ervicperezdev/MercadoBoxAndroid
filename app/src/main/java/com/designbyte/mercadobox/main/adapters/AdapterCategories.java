@@ -1,6 +1,7 @@
 package com.designbyte.mercadobox.main.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import com.designbyte.mercadobox.main.listener.RecyclerViewProductClickListener;
 import com.designbyte.mercadobox.main.viewHolder.ViewHolderCategory;
 import com.designbyte.mercadobox.models.firebase.Category;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AdapterCategories extends RecyclerView.Adapter<ViewHolderCategory> {
@@ -50,4 +52,10 @@ public class AdapterCategories extends RecyclerView.Adapter<ViewHolderCategory> 
     }
 
 
+    public void updateList(List<Category> newItems){
+        categoryParentList = null;
+        categoryParentList = new ArrayList<>();
+        categoryParentList.addAll(newItems);
+        notifyDataSetChanged();
+    }
 }

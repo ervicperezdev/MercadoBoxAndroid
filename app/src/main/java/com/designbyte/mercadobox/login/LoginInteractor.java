@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 
 import com.designbyte.mercadobox.models.db.AppDatabase;
 import com.designbyte.mercadobox.models.db.Customer;
+import com.designbyte.mercadobox.utils.MercadoBoxPreferences;
 import com.designbyte.mercadobox.utils.MercadoBoxUtils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -46,7 +47,7 @@ public class LoginInteractor {
         database = FirebaseDatabase.getInstance();
         customer = database.getReference("Customers");
         mAuth = FirebaseAuth.getInstance();
-
+        final MercadoBoxPreferences mercadoBoxPreferences = new MercadoBoxPreferences(context);
 
         db = databaseBuilder(context,
                 AppDatabase.class, "mbdb").allowMainThreadQueries().build();
@@ -64,6 +65,7 @@ public class LoginInteractor {
                                     if(dataSnapshot.exists()){
                                         db.customerDao().deleteAll();
                                         db.customerDao().insertItem(dataSnapshot.getValue(Customer.class));
+                                        mercadoBoxPreferences.saveSharedSetting("name",dataSnapshot.getValue(Customer.class).name+" "+dataSnapshot.getValue(Customer.class).lastName);
                                     }
                                 }
 

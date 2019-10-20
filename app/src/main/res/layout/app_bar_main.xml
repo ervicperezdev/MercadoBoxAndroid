@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     tools:context=".main.MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -23,18 +25,19 @@
                 android:paddingRight="10dp"
                 android:orientation="horizontal"
                 >
-                <EditText
+                <androidx.appcompat.widget.AppCompatEditText
                     android:layout_margin="5dp"
                     android:padding="6dp"
                     android:drawableLeft="@drawable/ic_search"
                     android:drawablePadding="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="text"
                     android:hint="Buscar producto"
                     android:textColorHint="@color/colorGrey"
                     android:textColor="@color/colorGrey"
                     android:background="@drawable/corner_round_search"
-                    android:id="@+id/btnSearch"
+                    android:id="@+id/tvSearch"
                     />
             </LinearLayout>
         </androidx.appcompat.widget.Toolbar>

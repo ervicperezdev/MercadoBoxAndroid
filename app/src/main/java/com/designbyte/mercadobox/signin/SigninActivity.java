@@ -109,6 +109,7 @@ public class SigninActivity extends AppCompatActivity implements SigninView {
         mercadoBoxPreferences.saveSharedSetting("logged",true);
         mercadoBoxPreferences.saveSharedSetting("email",email.getText().toString());
         mercadoBoxPreferences.saveSharedSetting("passwd",password.getText().toString());
+        mercadoBoxPreferences.saveSharedSetting("name",name.getText().toString()+" "+lastName.getText().toString());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             startActivity(new Intent(SigninActivity.this, MainActivity.class), ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
         }else{

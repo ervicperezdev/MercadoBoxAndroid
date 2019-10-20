@@ -44,7 +44,8 @@ public class AdapterProducts extends RecyclerView.Adapter<ViewHolderProduct>  {
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolderProduct holder, final int position) {
-        itemCart = db.cartDao().getItemCart(listProducts.get(position).idCategory,position);
+        final Product product = listProducts.get(position);
+        itemCart = db.cartDao().getItemCart(product.idCategory,product.id);
 
         //Si el producto ya existe en el carro de compras
         if(itemCart != null){
@@ -55,14 +56,14 @@ public class AdapterProducts extends RecyclerView.Adapter<ViewHolderProduct>  {
             holder.quantityLayout.setVisibility(View.GONE);
             holder.add.setVisibility(View.VISIBLE);
         }
-        Picasso.get().load(listProducts.get(position).img).into(holder.imgProduct);
-        holder.nameProduct.setText(listProducts.get(position).name);
-        holder.costProduct.setText(String.format("%s",listProducts.get(position).cost));
+        Picasso.get().load(product.img).into(holder.imgProduct);
+        holder.nameProduct.setText(product.name);
+        holder.costProduct.setText(String.format("%s",product.cost));
         holder.less.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                holder.mListener.onClick(v,position,listProducts.get(position).idCategory);
-                itemCart = db.cartDao().getItemCart(listProducts.get(position).idCategory,position);
+                holder.mListener.onClick(v,product.id,product.idCategory);
+                itemCart = db.cartDao().getItemCart(product.idCategory,product.id);
                 holder.quantityProduct.setText(String.format("%s %s",itemCart.quantity,itemCart.unity));
                 db.close();
 
@@ -71,8 +72,8 @@ public class AdapterProducts extends RecyclerView.Adapter<ViewHolderProduct>  {
         holder.plus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                holder.mListener.onClick(v,position,listProducts.get(position).idCategory);
-                itemCart = db.cartDao().getItemCart(listProducts.get(position).idCategory,position);
+                holder.mListener.onClick(v,product.id,product.idCategory);
+                itemCart = db.cartDao().getItemCart(product.idCategory,product.id);
                 holder.quantityProduct.setText(String.format("%s %s",itemCart.quantity,itemCart.unity));
                 db.close();
 
@@ -81,7 +82,7 @@ public class AdapterProducts extends RecyclerView.Adapter<ViewHolderProduct>  {
         holder.add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                holder.mListener.onClick(v,position,listProducts.get(position).idCategory);
+                holder.mListener.onClick(v,product.id,product.idCategory);
                 holder.quantityLayout.setVisibility(View.VISIBLE);
                 holder.add.setVisibility(View.GONE);
             }

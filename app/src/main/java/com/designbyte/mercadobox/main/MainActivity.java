@@ -11,24 +11,31 @@ import com.designbyte.mercadobox.R;
 import com.designbyte.mercadobox.cart.CartActivity;
 import com.designbyte.mercadobox.main.adapters.AdapterCategories;
 import com.designbyte.mercadobox.main.listener.RecyclerViewProductClickListener;
+import com.designbyte.mercadobox.models.ResponseCategories;
 import com.designbyte.mercadobox.models.db.Cart;
 import com.designbyte.mercadobox.models.firebase.Category;
+import com.designbyte.mercadobox.models.firebase.Product;
 import com.designbyte.mercadobox.orderhistory.OrderHistoryActivity;
 import com.designbyte.mercadobox.profile.ProfileActivity;
 import com.designbyte.mercadobox.splash.SplashActivity;
 import com.designbyte.mercadobox.utils.Constants;
 import com.designbyte.mercadobox.utils.MercadoBoxPreferences;
 
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatEditText;
 import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import android.view.MenuItem;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.gson.Gson;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
@@ -37,15 +44,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.Menu;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, MainView{
+        implements NavigationView.OnNavigationItemSelectedListener, MainView {
     FirebaseDatabase database;
     DatabaseReference categories;
     ProgressBar progressBar;
@@ -59,16 +68,24 @@ public class MainActivity extends AppCompatActivity
     TextView textTotalCart, productCount;
     final static int ORDER_COMPLETED = 111;
     Activity activity;
+    AppCompatEditText tvSearch;
+    AdapterCategories adapterCategories;
+    Context context;
+    MainInteractor mainInteractor;
+    TextView nameHeader, emailHeader;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initViews();
         navigationView.setNavigationItemSelectedListener(this);
+        mainInteractor = new MainInteractor();
+        mainInteractor.context = this;
         mercadoBoxPreferences = new MercadoBoxPreferences(this);
-        mainPresenter = new MainPresenter(this,new MainInteractor());
+        mainPresenter = new MainPresenter(this,mainInteractor);
         database = FirebaseDatabase.getInstance();
         activity = this;
+        context = this;
         listener = new RecyclerViewProductClickListener() {
             @Override
             public void onClick(View view, int position, int idCategory) {
@@ -117,7 +134,55 @@ public class MainActivity extends AppCompatActivity
         btnCart = findViewById(R.id.btnCart);
         productCount = findViewById(R.id.productCount);
         textTotalCart = findViewById(R.id.textTotalCart);
+        tvSearch = findViewById(R.id.tvSearch);
+        nameHeader = findViewById(R.id.nameHeader);
+        emailHeader = findViewById(R.id.emailHeader);
+        tvSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                Gson gson = new Gson();
+                ResponseCategories data = gson.fromJson(mercadoBoxPreferences.readSharedSetting("categories",""), ResponseCategories.class);
+
+                String textSearch = s.toString().toLowerCase();
+                Log.e("TextChanged",textSearch);
+                if(s.toString().length() <= 0){
+                    Log.e("TextChangedVacio","hola");
+
+                    adapterCategories.updateList(data.categories);
+                }else {
+                    List<Category> aux = new ArrayList<>();
+
+                    for (Category category : data.categories) {
+                        List<Product> productAux = new ArrayList<>();
+                        Category categoryAux = null;
+                        for (Product itemProduc : category.products) {
+                            if (itemProduc.name.toLowerCase().contains(textSearch)) {
+                                productAux.add(itemProduc);
+                                categoryAux = category;
+                            }
+
+                        }
+                        if (categoryAux != null) {
+                            categoryAux.products = productAux;
+                            aux.add(categoryAux);
+
+                        }
+                    }
+                    adapterCategories.updateList(aux);
+
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     @Override
@@ -162,11 +227,7 @@ public class MainActivity extends AppCompatActivity
             goToProfile();
         } else if (id == R.id.nav_orderhistory) {
             goToHistory();
-        } else if (id == R.id.nav_address) {
-
-        } else if (id == R.id.nav_preferences) {
-
-        } else if (id == R.id.nav_logout) {
+        }  else if (id == R.id.nav_logout) {
             logout();
         }
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -222,10 +283,13 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void loadDataCategories(List<Category> items) {
-        recyclerCategories.setAdapter(new AdapterCategories(items,this,listener));
+    public void loadDataCategories(final List<Category> items) {
+
+        adapterCategories = new AdapterCategories(items,this,listener);
+        recyclerCategories.setAdapter(adapterCategories);
         recyclerCategories.setLayoutManager(new LinearLayoutManager(this));
         recyclerCategories.setHasFixedSize(true);
+
     }
 
     @Override
@@ -282,6 +346,11 @@ public class MainActivity extends AppCompatActivity
             loadDataCategories();
             showButtonCart();
         }
+    }
+
+    public void loadDataUserInMain(){
+        nameHeader.setText(mercadoBoxPreferences.readSharedSetting("name",""));
+        emailHeader.setText(mercadoBoxPreferences.readSharedSetting("email",""));
     }
 
 }

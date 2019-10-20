@@ -24,15 +24,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:text="Ervic Perez"
+        android:text=""
+        android:id="@+id/nameHeader"
         android:textColor="@color/colorBlueNav"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/emailHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/colorBlueNav"
-        android:text="emendoza@nexura.com" />
+        android:text="" />
 
 </LinearLayout>

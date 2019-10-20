@@ -3,11 +3,14 @@ package com.designbyte.mercadobox.main;
 import android.content.Context;
 import android.util.Log;
 import androidx.annotation.NonNull;
+
+import com.designbyte.mercadobox.models.ResponseCategories;
 import com.designbyte.mercadobox.models.firebase.Category;
 import com.designbyte.mercadobox.models.firebase.Product;
 import com.designbyte.mercadobox.models.db.AppDatabase;
 import com.designbyte.mercadobox.models.db.Cart;
 import com.designbyte.mercadobox.utils.Constants;
+import com.designbyte.mercadobox.utils.MercadoBoxPreferences;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -15,6 +18,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +33,7 @@ public class MainInteractor {
     List<Category> categoryList;
     AppDatabase db;
     Cart newCart;
-
+    Context context;
 
     interface OnMainListener{
         void onLogout();
@@ -121,16 +126,24 @@ public class MainInteractor {
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ArrayList<Category> yourStringArray = new ArrayList<>();
+                GenericTypeIndicator<ArrayList<Category>> t;
                 try{
 
-                    GenericTypeIndicator<ArrayList<Category>> t = new GenericTypeIndicator<ArrayList<Category>>() {};
-                    ArrayList<Category> yourStringArray = dataSnapshot.getValue(t);
-                    listener.setDataCategories(yourStringArray);
+                    t = new GenericTypeIndicator<ArrayList<Category>>() {};
+                    yourStringArray = dataSnapshot.getValue(t);
+
 
                 }catch (Exception e){
                     Log.e("MainInteractor","onDataChanged"+e.getMessage());
                 }finally {
-
+                    Gson gson = new Gson();
+                    ResponseCategories data = new ResponseCategories();
+                    data.categories = yourStringArray;
+                    String categories = gson.toJson(data);
+                    MercadoBoxPreferences preferences = new MercadoBoxPreferences(context);
+                    preferences.saveSharedSetting("categories",categories);
+                    listener.setDataCategories(yourStringArray);
                 }
             }
             @Override
