@@ -177,8 +177,7 @@ public class DetailInteractor {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
-                    maxId = dataSnapshot.getChildrenCount();
-
+                    maxId = (dataSnapshot.getChildrenCount());
                 }
 
             }
@@ -192,12 +191,12 @@ public class DetailInteractor {
         db = databaseBuilder(context,
                 AppDatabase.class, "mbdb").allowMainThreadQueries().build();
         Order order = new Order();
+        order.idOrder = (int)(maxId+1);
         order.date = date;
         order.name = nameCard;
         order.address = address;
         order.status = 0;
         order.products = db.cartDao().getItemsCart();
-        order.idOrder = Integer.valueOf(String.valueOf(maxId +1));
         order.uidUser = FirebaseAuth.getInstance().getUid();
         order.noteOrder = noteOrder;
         order.confirmationCall = confirmationCall;

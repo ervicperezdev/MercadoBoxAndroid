@@ -107,6 +107,9 @@ public class ProfileActivity extends AppCompatActivity implements ProfileView{
     @Override
     public void savedChanges() {
         Toast.makeText(this, "Se han guardado los cambios",Toast.LENGTH_LONG).show();
+        mercadoBoxPreferences.saveSharedSetting("name",name.getText().toString()+" "+lastName.getText().toString());
+        mercadoBoxPreferences.saveSharedSetting("email",name.getText().toString());
+        mercadoBoxPreferences.saveSharedSetting("passwd",password.getText().toString());
     }
 
     public void updateProfile(){

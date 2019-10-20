@@ -60,7 +60,7 @@ public class MainInteractor {
                         newCart.step = product.step;
                         newCart.unity = product.unity;
                         newCart.idCategory = idCategory;
-                        newCart.idProduct = idProduct;
+                        newCart.idProduct = product.id;
                         newCart.image = product.img;
                         newCart.quantity = 1;
                         newCart.name = product.name;

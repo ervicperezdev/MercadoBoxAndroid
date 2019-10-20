@@ -82,26 +82,29 @@ public class MainActivity extends AppCompatActivity
         mainInteractor = new MainInteractor();
         mainInteractor.context = this;
         mercadoBoxPreferences = new MercadoBoxPreferences(this);
+        loadDataUserInMain();
+
         mainPresenter = new MainPresenter(this,mainInteractor);
         database = FirebaseDatabase.getInstance();
         activity = this;
         context = this;
+
         listener = new RecyclerViewProductClickListener() {
             @Override
-            public void onClick(View view, int position, int idCategory) {
+            public void onClick(View view, int idProduct, int idCategory) {
                 if(view.getId() == R.id.btnAdd){
 
-                    updateCart(Constants.PRODUCT_ADD,idCategory,position);
+                    updateCart(Constants.PRODUCT_ADD,idCategory,idProduct);
                     Toast toast = Toast.makeText(MainActivity.this,String.format("Producto agregado al carrito"),Toast.LENGTH_SHORT);
                     toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                     toast.show();
                 }else if(view.getId() == R.id.less){
-                    updateCart(Constants.PRODUCT_LESS,idCategory,position);
+                    updateCart(Constants.PRODUCT_LESS,idCategory,idProduct);
                     showButtonCart();
 
                     //Toast.makeText(MainActivity.this,String.format("less %s",idCategory),Toast.LENGTH_LONG).show();
                 }else if(view.getId() == R.id.plus){
-                    updateCart(Constants.PRODUCT_PLUS,idCategory,position);
+                    updateCart(Constants.PRODUCT_PLUS,idCategory,idProduct);
                     showButtonCart();
 
                     //Toast.makeText(MainActivity.this,String.format("plus %s",idCategory),Toast.LENGTH_LONG).show();
@@ -135,8 +138,7 @@ public class MainActivity extends AppCompatActivity
         productCount = findViewById(R.id.productCount);
         textTotalCart = findViewById(R.id.textTotalCart);
         tvSearch = findViewById(R.id.tvSearch);
-        nameHeader = findViewById(R.id.nameHeader);
-        emailHeader = findViewById(R.id.emailHeader);
+
         tvSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -349,6 +351,9 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void loadDataUserInMain(){
+        View headerView = navigationView.getHeaderView(0);
+        nameHeader = headerView.findViewById(R.id.nameHeader);
+        emailHeader = headerView.findViewById(R.id.emailHeader);
         nameHeader.setText(mercadoBoxPreferences.readSharedSetting("name",""));
         emailHeader.setText(mercadoBoxPreferences.readSharedSetting("email",""));
     }

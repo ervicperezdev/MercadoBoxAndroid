@@ -14,6 +14,7 @@ public class Order {
     @SerializedName("name")
     @Expose
     public String name;
+
     @SerializedName("status")
     @Expose
     public int status;
@@ -51,7 +52,28 @@ public class Order {
         return total;
     }
 
-    public float getIVA(){
+    public String convertStatusToText(){
+        String nameStatus= "";
+        switch (status){
+            case 0: nameStatus = "Producto en carrito";
+                break;
+            case 1: nameStatus = "Cotización";
+                break;
+            case 2: nameStatus = "Pedido confirmado";
+                break;
+            case 3: nameStatus = "En ruta";
+                break;
+            case 4: nameStatus = "Entregado";
+                break;
+            case 5: nameStatus = "En aclaración";
+                break;
+            case 6: nameStatus = "Resuelto";
+                break;
+
+        }
+        return nameStatus;
+    }
+    public float getPorcentIVA(){
         return getTotal()*0.16f;
     }
 }

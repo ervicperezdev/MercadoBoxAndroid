@@ -97,7 +97,7 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:weightSum="3"
+                android:weightSum="2"
                 android:orientation="vertical"
                 android:layout_height="match_parent">
                 <TextView
@@ -107,12 +107,10 @@
                     android:id="@+id/statusOrder"
                     android:gravity="center"
                     android:textSize="15sp"
+                    android:layout_marginRight="15dp"
                     android:textColor="@color/colorWhite"
                     android:layout_weight="1"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_weight="1"
-                    android:layout_height="0dp"/>
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="0dp"

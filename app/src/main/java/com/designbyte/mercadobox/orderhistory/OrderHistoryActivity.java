@@ -80,8 +80,8 @@ public class OrderHistoryActivity extends AppCompatActivity implements OrderHist
 
 
         tvSubtotal.setText(String.format("%s",formatter.format(order.getTotal())));
-        tvIVA.setText(String.format("%s",formatter.format(order.getIVA())));
-        tvTotal.setText(String.format("%s",formatter.format(order.getTotal()+order.getIVA())));
+        tvIVA.setText(String.format("%s",formatter.format(order.getPorcentIVA())));
+        tvTotal.setText(String.format("%s",formatter.format(order.getTotal()+order.getPorcentIVA())));
 
         RecyclerView recyclerView1 = (RecyclerView) view.findViewById(R.id.listDetailProduct);
         recyclerView1.setHasFixedSize(true);

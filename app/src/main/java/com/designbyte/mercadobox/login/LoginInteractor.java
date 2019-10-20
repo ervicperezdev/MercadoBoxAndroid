@@ -63,9 +63,10 @@ public class LoginInteractor {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                     if(dataSnapshot.exists()){
+                                        Customer customer = dataSnapshot.getValue(Customer.class);
                                         db.customerDao().deleteAll();
-                                        db.customerDao().insertItem(dataSnapshot.getValue(Customer.class));
-                                        mercadoBoxPreferences.saveSharedSetting("name",dataSnapshot.getValue(Customer.class).name+" "+dataSnapshot.getValue(Customer.class).lastName);
+                                        db.customerDao().insertItem(customer);
+                                        mercadoBoxPreferences.saveSharedSetting("name",customer.name+" "+customer.lastName);
                                     }
                                 }
 

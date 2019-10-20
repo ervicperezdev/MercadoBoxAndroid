@@ -15,6 +15,7 @@ import com.designbyte.mercadobox.models.firebase.Order;
 import com.designbyte.mercadobox.orderhistory.listener.RecyclerViewOrderClickListener;
 import com.designbyte.mercadobox.orderhistory.viewHolder.ViewHolderOrder;
 
+import java.text.NumberFormat;
 import java.util.List;
 
 public class AdapterOrders extends RecyclerView.Adapter<ViewHolderOrder> {
@@ -41,8 +42,8 @@ public class AdapterOrders extends RecyclerView.Adapter<ViewHolderOrder> {
         holder.name.setText(orderList.get(position).name);
         holder.folioOrder.setText(String.format("Pedido %s",orderList.get(position).idOrder));
         holder.date.setText(orderList.get(position).date);
-        holder.status.setText(String.format("%s",orderList.get(position).status));
-        holder.total.setText(String.format("Total $%s",calculaTotal(orderList.get(position).products)));
+        holder.status.setText(String.format("%s",orderList.get(position).convertStatusToText()));
+        holder.total.setText(String.format("Total %s",calculaTotal(orderList.get(position).products)));
         holder.numProducts.setText(String.format("Articulos %s",orderList.get(position).products.size()));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,12 +59,15 @@ public class AdapterOrders extends RecyclerView.Adapter<ViewHolderOrder> {
         return orderList!=null?orderList.size():0;
     }
 
-    private float calculaTotal(List<Cart> items){
+    private String calculaTotal(List<Cart> items){
+        NumberFormat formatter = NumberFormat.getNumberInstance();
+        formatter.setMinimumFractionDigits(2);
+        formatter.setMaximumFractionDigits(2);
         float total = 0;
         for (Cart item : items
              ) {
             total += (item.quantity*item.costByUnit);
         }
-        return total;
+        return "$"+formatter.format(total);
     }
 }
