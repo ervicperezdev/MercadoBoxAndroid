@@ -22,7 +22,7 @@ public class MainPresenter implements MainInteractor.OnMainListener {
         mainInteractor.logoutApp(this);
     }
 
-    public void updateItemCart(int event, int idCategory, int idProduct, Context context){
+    public void updateItemCart(int event, String idCategory, String idProduct, Context context){
         if(mainView != null) {
             mainInteractor.updateItemCart(event, idCategory, idProduct,context,this);
         }

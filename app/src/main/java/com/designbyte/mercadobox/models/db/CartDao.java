@@ -18,7 +18,7 @@ public interface CartDao {
     Cart getItemCartById(int id);
 
     @Query("SELECT * FROM Cart WHERE idCategory = :idCategory AND idProduct = :idProduct")
-    Cart getItemCart(int idCategory, int idProduct);
+    Cart getItemCart(String idCategory, String idProduct);
 
     @Query(("SELECT SUM(quantity*costByUnit) FROM Cart "))
     float getTotal();

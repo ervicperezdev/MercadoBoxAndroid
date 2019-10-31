@@ -10,10 +10,10 @@ public class Cart {
     public int id;
 
     @ColumnInfo(name = "idCategory")
-    public int idCategory;
+    public String idCategory;
 
     @ColumnInfo(name = "idProduct")
-    public int idProduct;
+    public String idProduct;
 
     @ColumnInfo(name = "name")
     public String name;

@@ -10,6 +10,8 @@ import android.os.Bundle;
 import com.designbyte.mercadobox.R;
 import com.designbyte.mercadobox.cart.CartActivity;
 import com.designbyte.mercadobox.main.adapters.AdapterCategories;
+import com.designbyte.mercadobox.main.adapters.AdapterFilterCategories;
+import com.designbyte.mercadobox.main.listener.RecyclerViewFilterClickListener;
 import com.designbyte.mercadobox.main.listener.RecyclerViewProductClickListener;
 import com.designbyte.mercadobox.models.ResponseCategories;
 import com.designbyte.mercadobox.models.db.Cart;
@@ -56,20 +58,21 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, MainView {
     FirebaseDatabase database;
-    DatabaseReference categories;
     ProgressBar progressBar;
     DrawerLayout drawer;
     NavigationView navigationView;
     MainPresenter mainPresenter;
     MercadoBoxPreferences mercadoBoxPreferences;
-    RecyclerView recyclerCategories;
+    RecyclerView recyclerCategories,recyclerFilterCategory;
     RecyclerViewProductClickListener listener;
+    RecyclerViewFilterClickListener listenerFilter;
     CardView btnCart;
     TextView textTotalCart, productCount;
     final static int ORDER_COMPLETED = 111;
     Activity activity;
     AppCompatEditText tvSearch;
     AdapterCategories adapterCategories;
+    AdapterFilterCategories adapterFilterCategories;
     Context context;
     MainInteractor mainInteractor;
     TextView nameHeader, emailHeader;
@@ -91,7 +94,7 @@ public class MainActivity extends AppCompatActivity
 
         listener = new RecyclerViewProductClickListener() {
             @Override
-            public void onClick(View view, int idProduct, int idCategory) {
+            public void onClick(View view, String idProduct, String idCategory) {
                 if(view.getId() == R.id.btnAdd){
 
                     updateCart(Constants.PRODUCT_ADD,idCategory,idProduct);
@@ -101,18 +104,28 @@ public class MainActivity extends AppCompatActivity
                 }else if(view.getId() == R.id.less){
                     updateCart(Constants.PRODUCT_LESS,idCategory,idProduct);
                     showButtonCart();
-
-                    //Toast.makeText(MainActivity.this,String.format("less %s",idCategory),Toast.LENGTH_LONG).show();
                 }else if(view.getId() == R.id.plus){
                     updateCart(Constants.PRODUCT_PLUS,idCategory,idProduct);
                     showButtonCart();
 
-                    //Toast.makeText(MainActivity.this,String.format("plus %s",idCategory),Toast.LENGTH_LONG).show();
                 }
             }
 
         };
+        listenerFilter = new RecyclerViewFilterClickListener() {
+            @Override
+            public void onClick(View view, int position, String idCategory) {
+                Gson gson = new Gson();
+                ResponseCategories data = gson.fromJson(mercadoBoxPreferences.readSharedSetting("categories",""), ResponseCategories.class);
 
+                if(idCategory.contains("all")){
+                    adapterCategories.updateList(data.categories);
+
+                }else{
+                    adapterCategories.updateList(data.getCategoriesById(idCategory));
+                }
+            }
+        };
         loadDataCategories();
         btnCart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,6 +147,7 @@ public class MainActivity extends AppCompatActivity
         navigationView = findViewById(R.id.nav_view);
         progressBar = findViewById(R.id.progressBar);
         recyclerCategories = findViewById(R.id.recyclerCategories);
+        recyclerFilterCategory = findViewById(R.id.filterCategory);
         btnCart = findViewById(R.id.btnCart);
         productCount = findViewById(R.id.productCount);
         textTotalCart = findViewById(R.id.textTotalCart);
@@ -162,15 +176,15 @@ public class MainActivity extends AppCompatActivity
                     for (Category category : data.categories) {
                         List<Product> productAux = new ArrayList<>();
                         Category categoryAux = null;
-                        for (Product itemProduc : category.products) {
-                            if (itemProduc.name.toLowerCase().contains(textSearch)) {
+                        for (Product itemProduc : category.getListProducts()) {
+                            if (itemProduc.nameProduct.toLowerCase().contains(textSearch)) {
                                 productAux.add(itemProduc);
                                 categoryAux = category;
                             }
 
                         }
                         if (categoryAux != null) {
-                            categoryAux.products = productAux;
+                            categoryAux.setListProducts(productAux);
                             aux.add(categoryAux);
 
                         }
@@ -292,6 +306,17 @@ public class MainActivity extends AppCompatActivity
         recyclerCategories.setLayoutManager(new LinearLayoutManager(this));
         recyclerCategories.setHasFixedSize(true);
 
+        final List<Category> aux = new ArrayList<>();
+        Category all = new Category();
+        all.id = "all";
+        all.nameCategory = "Todos";
+        aux.add(all);
+        aux.addAll(items);
+
+        adapterFilterCategories = new AdapterFilterCategories(aux,this,listenerFilter);
+        recyclerFilterCategory.setAdapter(adapterFilterCategories);
+        recyclerFilterCategory.setLayoutManager(new LinearLayoutManager(this,RecyclerView.HORIZONTAL,false));
+        recyclerFilterCategory.setHasFixedSize(true);
     }
 
     @Override
@@ -328,9 +353,10 @@ public class MainActivity extends AppCompatActivity
     }
     public void loadDataCategories(){
         mainPresenter.loadDataCategories();
+
     }
 
-    public void updateCart(int event, int idCategory, int idProduct){
+    public void updateCart(int event, String idCategory, String idProduct){
         mainPresenter.updateItemCart(event,idCategory,idProduct,this);
         //mainPresenter.showCart();
     }

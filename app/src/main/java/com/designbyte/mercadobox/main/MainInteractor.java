@@ -22,6 +22,7 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static androidx.room.Room.databaseBuilder;
 
@@ -29,12 +30,12 @@ import static androidx.room.Room.databaseBuilder;
 public class MainInteractor {
     private FirebaseAuth mAuth;
     private FirebaseDatabase database;
-    private DatabaseReference categories;
+    private DatabaseReference categories, products;
     List<Category> categoryList;
     AppDatabase db;
     Cart newCart;
     Context context;
-
+    int index = 0;
     interface OnMainListener{
         void onLogout();
         void setDataCategories(List<Category> items);
@@ -44,7 +45,7 @@ public class MainInteractor {
 
     }
 
-    public void updateItemCart(int event, final int idCategory, final int idProduct, Context context, final OnMainListener listener) {
+    public void updateItemCart(int event, final String idCategory, final String idProduct, Context context, final OnMainListener listener) {
          db = databaseBuilder(context,
                 AppDatabase.class, "mbdb").allowMainThreadQueries().build();
         categories = database.getReference("Categories");
@@ -56,14 +57,13 @@ public class MainInteractor {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         Product product = dataSnapshot.getValue(Product.class);
-                        newCart.costByUnit = product.cost;
-                        newCart.step = product.step;
+                        newCart.costByUnit = Float.valueOf(product.costUnity);
                         newCart.unity = product.unity;
                         newCart.idCategory = idCategory;
                         newCart.idProduct = product.id;
-                        newCart.image = product.img;
+                        newCart.image = product.image;
                         newCart.quantity = 1;
-                        newCart.name = product.name;
+                        newCart.name = product.nameProduct;
                         newCart.description = "";
                         db.cartDao().insertItem(newCart);
                         listener.onCompleteUpdated();
@@ -123,27 +123,29 @@ public class MainInteractor {
 
     public void getDataCategories(final OnMainListener listener){
         categoryList = new ArrayList<>();
+        database = FirebaseDatabase.getInstance();
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                ArrayList<Category> yourStringArray = new ArrayList<>();
-                GenericTypeIndicator<ArrayList<Category>> t;
+
+                    categoryList = new ArrayList<>();
                 try{
 
-                    t = new GenericTypeIndicator<ArrayList<Category>>() {};
-                    yourStringArray = dataSnapshot.getValue(t);
-
-
+                    for (DataSnapshot child: dataSnapshot.getChildren()) {
+                        Category rowCategory = child.getValue(Category.class);
+                        rowCategory.convertListProduct();
+                        categoryList.add(rowCategory);
+                    }
                 }catch (Exception e){
                     Log.e("MainInteractor","onDataChanged"+e.getMessage());
                 }finally {
                     Gson gson = new Gson();
                     ResponseCategories data = new ResponseCategories();
-                    data.categories = yourStringArray;
+                    data.categories = categoryList;
                     String categories = gson.toJson(data);
                     MercadoBoxPreferences preferences = new MercadoBoxPreferences(context);
                     preferences.saveSharedSetting("categories",categories);
-                    listener.setDataCategories(yourStringArray);
+                    listener.setDataCategories(categoryList);
                 }
             }
             @Override
@@ -151,7 +153,6 @@ public class MainInteractor {
                 Log.e("MainInteractor","onCancelled"+databaseError.getMessage());
             }
         };
-        database = FirebaseDatabase.getInstance();
         categories = database.getReference("Categories");
         categories.addValueEventListener(valueEventListener);
     }

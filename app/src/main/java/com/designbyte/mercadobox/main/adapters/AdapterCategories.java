@@ -41,7 +41,7 @@ public class AdapterCategories extends RecyclerView.Adapter<ViewHolderCategory> 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(holder.recyclerViewProducts.getContext(), RecyclerView.HORIZONTAL, false);
         holder.recyclerViewProducts.setLayoutManager(linearLayoutManager);
         holder.recyclerViewProducts.setHasFixedSize(true);
-        holder.recyclerViewProducts.setAdapter(new AdapterProducts(categoryParentList.get(position).products,context,mListener));
+        holder.recyclerViewProducts.setAdapter(new AdapterProducts(categoryParentList.get(position).getListProducts(),context,mListener));
         holder.recyclerViewProducts.setRecycledViewPool(viewPool);
         holder.nameCategory.setText(categoryParentList.get(position).nameCategory);
     }
