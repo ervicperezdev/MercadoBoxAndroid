@@ -36,4 +36,22 @@ public class Cart {
     @ColumnInfo(name = "description")
     public String description;
 
+    public String getUnityText(){
+        String text = "";
+        switch (Integer.valueOf(this.unity)){
+            case  0:  text = "kg(s)";
+            break;
+            case 1: text = "g(s)";
+            break;
+            case 2: text = "oz";
+            break;
+            case 3: text = "pza";
+            break;
+            case 4: text = "l(s)";
+            break;
+
+        }
+        return text;
+    }
+
 }

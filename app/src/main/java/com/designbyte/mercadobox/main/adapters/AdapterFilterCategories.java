@@ -49,18 +49,28 @@ public class AdapterFilterCategories extends RecyclerView.Adapter<ViewHolderFilt
             }
         });
 
-        if(index_row != position){
+        if(index_row == position){
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                holder.cardCategory.setCardBackgroundColor(context.getColor(R.color.grey_500));
-            }else{
-                holder.cardCategory.setCardBackgroundColor(context.getResources().getColor(R.color.grey_500));
+                holder.nameCategory.setBackgroundColor(context.getColor(R.color.colorPrimary));
+                holder.cardCategory.setCardBackgroundColor(context.getColor(R.color.colorPrimary));
+                holder.nameCategory.setTextColor(context.getColor(R.color.colorWhite));
+            }else {
+                holder.nameCategory.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
+                holder.cardCategory.setCardBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
+                holder.nameCategory.setTextColor(context.getResources().getColor(R.color.colorWhite));
             }
         }else{
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    holder.cardCategory.setCardBackgroundColor(context.getColor(R.color.colorPrimary));
+                    holder.nameCategory.setBackgroundColor(context.getColor(R.color.colorWhite));
+                    holder.cardCategory.setCardBackgroundColor(context.getColor(R.color.colorWhite));
+                    holder.nameCategory.setTextColor(context.getColor(R.color.colorPrimary));
+
                 } else {
-                    holder.cardCategory.setCardBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
+                    holder.nameCategory.setBackgroundColor(context.getResources().getColor(R.color.colorWhite));
+                    holder.cardCategory.setCardBackgroundColor(context.getResources().getColor(R.color.colorWhite));
+                    holder.nameCategory.setTextColor(context.getResources().getColor(R.color.colorPrimary));
+
                 }
 
 

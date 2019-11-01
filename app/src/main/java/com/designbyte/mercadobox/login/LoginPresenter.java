@@ -16,7 +16,12 @@ public class LoginPresenter implements LoginInteractor.OnLoginFinishedListener{
         }
         loginInteractor.login(username,password,this);
     }
-
+    public void forgotPassword(String email){
+        if(loginView != null){
+            loginInteractor.forgotPassword(email,this);
+            loginView.showProgress();
+        }
+    }
     public void onDestroy(){
         loginView = null;
     }
@@ -49,6 +54,30 @@ public class LoginPresenter implements LoginInteractor.OnLoginFinishedListener{
         if(loginView != null){
             loginView.hideProgress();
             loginView.showUserOrPasswordNotCorret();
+        }
+    }
+
+    @Override
+    public void setEmailToResetSuccess(String email) {
+        if(loginView != null){
+            loginView.hideProgress();
+            loginView.emailToResetPasswordSent(email);
+        }
+    }
+
+    @Override
+    public void setEmailToResetError(String messageError) {
+        if(loginView != null){
+            loginView.hideProgress();
+            loginView.messageResetPasswordError(messageError);
+        }
+    }
+
+    @Override
+    public void onEmailError() {
+        if(loginView != null){
+            loginView.hideProgress();
+            loginView.setEmailError();
         }
     }
 }

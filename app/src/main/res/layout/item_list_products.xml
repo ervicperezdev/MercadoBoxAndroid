@@ -25,7 +25,7 @@
             android:layout_height="36dp"
             android:background="@drawable/corner_round_green"
             android:text="AGREGAR"
-
+            android:layout_marginTop="8dp"
             android:textColor="@color/colorWhite"
             android:theme="@style/RaisedButton_profile"
             app:layout_constraintTop_toBottomOf="@+id/costProduct" />
@@ -43,6 +43,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal"
+            android:layout_marginTop="8dp"
             app:layout_constraintTop_toBottomOf="@+id/costProduct">
 
             <Button

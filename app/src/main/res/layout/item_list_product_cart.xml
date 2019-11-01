@@ -44,7 +44,7 @@
                     android:layout_height="wrap_content"
                     android:text="Product"
                     android:id="@+id/nameProduct"
-                    android:textSize="12sp"
+                    android:textSize="15sp"
                     android:textColor="@color/colorTextProductCart"
                     />
                 <TextView

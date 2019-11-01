@@ -3,6 +3,8 @@ package com.designbyte.mercadobox.signin;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ActivityOptions;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -11,6 +13,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.designbyte.mercadobox.R;
@@ -130,6 +133,8 @@ public class SigninActivity extends AppCompatActivity implements SigninView {
         Toast.makeText(this,"La contraseña debe tener al menos 6 carácteres",Toast.LENGTH_LONG).show();
     }
 
+
+
     public void signin(){
         presenter.signinProcess(name.getText().toString(),
                 lastName.getText().toString(),
@@ -140,6 +145,7 @@ public class SigninActivity extends AppCompatActivity implements SigninView {
                 checkBoxTermsConditions.isChecked()
         );
     }
+
 
     @Override
     protected void onDestroy() {

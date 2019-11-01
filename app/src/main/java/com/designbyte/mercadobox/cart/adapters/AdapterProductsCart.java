@@ -46,7 +46,7 @@ public class AdapterProductsCart extends RecyclerView.Adapter<ViewHolderProducts
         Picasso.get().load(productCartList.get(position).image).into(holder.imgProduct);
         holder.nameProduct.setText(productCartList.get(position).name);
         holder.descriptionProduct.setText(productCartList.get(position).description);
-        holder.quantityName.setText(String.format("%s %s",productCartList.get(position).quantity,productCartList.get(position).unity));
+        holder.quantityName.setText(String.format("%s %s",productCartList.get(position).quantity,productCartList.get(position).getUnityText()));
         holder.totalProduct.setText(String.format("%s",(productCartList.get(position).costByUnit*productCartList.get(position).quantity)));
 
         holder.less.setOnClickListener(new View.OnClickListener() {
@@ -54,7 +54,7 @@ public class AdapterProductsCart extends RecyclerView.Adapter<ViewHolderProducts
             public void onClick(View v) {
                 holder.mListener.onClick(v,position,productCartList.get(position).id);
                 itemCart = db.cartDao().getItemCartById(productCartList.get(position).id);
-                holder.quantityName.setText(String.format("%s %s",itemCart.quantity,itemCart.unity));
+                holder.quantityName.setText(String.format("%s %s",itemCart.quantity,itemCart.getUnityText()));
                 holder.totalProduct.setText(String.format("$%s",(itemCart.costByUnit*itemCart.quantity)));
                 holder.mListener.onCostTotalChange(db.cartDao().getTotal());
             }
@@ -64,7 +64,7 @@ public class AdapterProductsCart extends RecyclerView.Adapter<ViewHolderProducts
             public void onClick(View v) {
                 holder.mListener.onClick(v,position,productCartList.get(position).id);
                 itemCart = db.cartDao().getItemCartById(productCartList.get(position).id);
-                holder.quantityName.setText(String.format("%s %s",itemCart.quantity,itemCart.unity));
+                holder.quantityName.setText(String.format("%s %s",itemCart.quantity,itemCart.getUnityText()));
                 holder.totalProduct.setText(String.format("$%s",(itemCart.costByUnit*itemCart.quantity)));
                 holder.mListener.onCostTotalChange(db.cartDao().getTotal());
 

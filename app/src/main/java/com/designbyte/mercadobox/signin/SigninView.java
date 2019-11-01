@@ -14,4 +14,5 @@ public interface SigninView {
     void goToMain();
     void showUserAlreadyExist();
     void showAuthWeakPassword();
+
 }

@@ -12,6 +12,7 @@ import com.designbyte.mercadobox.models.firebase.User;
 import com.designbyte.mercadobox.utils.MercadoBoxUtils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.ActionCodeSettings;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
@@ -41,7 +42,9 @@ public class SigninInteractor {
         void onWeakPassword();
         void onSuccess();
         void onUserAlreadyExist();
+
     }
+
 
     public void signin(final String name, final String lastname, final String email, final String phoneNumber, final String password, final String passwordConfirm, final Boolean termsConditions, final OnSigninFinishedListener listener){
         if(TextUtils.isEmpty(name)){

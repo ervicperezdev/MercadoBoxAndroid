@@ -16,6 +16,7 @@ public class SigninPresenter implements SigninInteractor.OnSigninFinishedListene
         }
         signinInteractor.signin(name,lastname,email,phone,password, passwordConfirm, termsConditions,this);
     }
+
     @Override
     public void onNameError() {
         if(signinView != null){
@@ -105,6 +106,9 @@ public class SigninPresenter implements SigninInteractor.OnSigninFinishedListene
             signinView.showUserAlreadyExist();
         }
     }
+
+
+
 
     public void onDestroy(){
         signinView = null;

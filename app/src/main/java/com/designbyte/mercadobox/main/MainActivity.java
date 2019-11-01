@@ -76,6 +76,7 @@ public class MainActivity extends AppCompatActivity
     Context context;
     MainInteractor mainInteractor;
     TextView nameHeader, emailHeader;
+    Button btnMenu;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -197,6 +198,16 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void afterTextChanged(Editable s) {
 
+            }
+        });
+
+        btnMenu = findViewById(R.id.btnMenu);
+
+
+        btnMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawer.openDrawer(GravityCompat.START);
             }
         });
     }

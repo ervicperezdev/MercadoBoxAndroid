@@ -4,12 +4,17 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.designbyte.mercadobox.models.db.AppDatabase;
 import com.designbyte.mercadobox.models.db.Customer;
+import com.designbyte.mercadobox.signin.SigninInteractor;
 import com.designbyte.mercadobox.utils.MercadoBoxPreferences;
 import com.designbyte.mercadobox.utils.MercadoBoxUtils;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.SuccessContinuation;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -18,6 +23,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.concurrent.Executor;
 
 import static androidx.room.Room.databaseBuilder;
 
@@ -32,8 +39,32 @@ public class LoginInteractor {
         void onPasswordError();
         void onSuccess();
         void onFailure();
+        void setEmailToResetSuccess(String email);
+        void setEmailToResetError(String messageError);
+        void onEmailError();
     }
+    public void forgotPassword(final String email, final LoginInteractor.OnLoginFinishedListener listener){
+        if(!MercadoBoxUtils.isValidEmail(email)){
+            listener.onEmailError();
+            return;
+        }
 
+        mAuth = FirebaseAuth.getInstance();
+        mAuth.setLanguageCode("es");
+        mAuth.useAppLanguage();
+        mAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+                    listener.setEmailToResetSuccess(email);
+
+                }else{
+                    listener.setEmailToResetError(String.format("%s ",task.getException().getMessage()));
+
+                }
+            }
+        });
+    }
     public void login(final String username, final String password, final OnLoginFinishedListener listener){
         if(!MercadoBoxUtils.isValidEmail(username)){
             listener.onUsernameError();

@@ -36,7 +36,7 @@ public class AdapterDetailOrder extends RecyclerView.Adapter<ItemDetailViewHolde
 
     @Override
     public void onBindViewHolder(@NonNull ItemDetailViewHolder holder, int position) {
-        holder.name.setText(String.format("%s %s(s) de %s",items.get(position).quantity, items.get(position).unity,items.get(position).name));
+        holder.name.setText(String.format("%s %s(s) de %s",items.get(position).quantity, items.get(position).getUnityText(),items.get(position).name));
 
 
         NumberFormat formatter = NumberFormat.getNumberInstance();

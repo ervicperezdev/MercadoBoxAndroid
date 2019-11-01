@@ -49,7 +49,7 @@ public class AdapterProducts extends RecyclerView.Adapter<ViewHolderProduct>  {
 
         //Si el producto ya existe en el carro de compras
         if(itemCart != null){
-            holder.quantityProduct.setText(String.format("%s %s",itemCart.quantity,itemCart.unity));
+            holder.quantityProduct.setText(String.format("%s %s",itemCart.quantity,itemCart.getUnityText()));
             holder.quantityLayout.setVisibility(View.VISIBLE);
             holder.add.setVisibility(View.GONE);
         }else{
@@ -65,7 +65,7 @@ public class AdapterProducts extends RecyclerView.Adapter<ViewHolderProduct>  {
             public void onClick(View v) {
                 holder.mListener.onClick(v,product.id,product.idCategory);
                 itemCart = db.cartDao().getItemCart(product.idCategory,product.id);
-                holder.quantityProduct.setText(String.format("%s %s",itemCart.quantity,itemCart.unity));
+                holder.quantityProduct.setText(String.format("%s %s",itemCart.quantity,itemCart.getUnityText()));
                 db.close();
 
             }
@@ -75,7 +75,7 @@ public class AdapterProducts extends RecyclerView.Adapter<ViewHolderProduct>  {
             public void onClick(View v) {
                 holder.mListener.onClick(v,product.id,product.idCategory);
                 itemCart = db.cartDao().getItemCart(product.idCategory,product.id);
-                holder.quantityProduct.setText(String.format("%s %s",itemCart.quantity,itemCart.unity));
+                holder.quantityProduct.setText(String.format("%s %s",itemCart.quantity,itemCart.getUnityText()));
                 db.close();
 
             }

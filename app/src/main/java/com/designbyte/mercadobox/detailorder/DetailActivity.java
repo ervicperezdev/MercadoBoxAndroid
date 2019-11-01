@@ -72,7 +72,7 @@ public class DetailActivity extends AppCompatActivity implements DetailView{
         commonPagerAdapter.insertViewId(R.id.firstPage);
         commonPagerAdapter.insertViewId(R.id.secondPage);
         viewPager.setAdapter(commonPagerAdapter);
-
+        totalCart.setText(getIntent().getStringExtra("total"));
         showNext();
         viewPager.setSwipeLocked(true);
         next.setOnClickListener(new View.OnClickListener() {

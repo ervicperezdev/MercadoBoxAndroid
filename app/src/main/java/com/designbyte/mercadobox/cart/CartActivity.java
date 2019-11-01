@@ -8,6 +8,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -113,8 +114,14 @@ public class CartActivity extends AppCompatActivity implements CartView{
 
 
     public void goToDetailOrder(){
+        Intent intent = new Intent(CartActivity.this,DetailActivity.class);
+        intent.putExtra("total",textViewTotalCart.getText().toString());
 
-        startActivityForResult(new Intent(CartActivity.this, DetailActivity.class),ORDER_COMPLETED, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            startActivityForResult(intent,ORDER_COMPLETED, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+        }else{
+            startActivityForResult(intent,ORDER_COMPLETED);
+        }
     }
 
     @Override

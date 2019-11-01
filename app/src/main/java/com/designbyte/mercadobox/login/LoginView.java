@@ -7,4 +7,7 @@ public interface LoginView {
     void setPasswordError();
     void goToMain();
     void showUserOrPasswordNotCorret();
+    void emailToResetPasswordSent(String email);
+    void messageResetPasswordError(String messageError);
+    void setEmailError();
 }
