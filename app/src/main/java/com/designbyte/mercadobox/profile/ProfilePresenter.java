@@ -12,14 +12,21 @@ public class ProfilePresenter implements ProfileInteractor.OnChangeFinishedListe
         this.profileInteractor = profileInteractor;
     }
 
-    public void updateProfile(String name, String lastname, String email, String phoneNumber, String password, String passwordConfirm){
+    public void updateProfile(String name, String lastname, String email, String phoneNumber, String address, String responsable){
         if(profileView != null){
             profileView.showProgress();
         }
-        profileInteractor.updateProfile(name,lastname,email,phoneNumber,password,passwordConfirm,this);
+        profileInteractor.updateProfile(name,lastname,email,phoneNumber, address, responsable,this);
     }
     public void getDataUser(){
         profileInteractor.setDataProfile(this);
+    }
+
+    public void changePassword(String email,String oldPassword, String password, String passwordConfirmation){
+        if(profileView != null){
+            profileInteractor.changePassword(email,oldPassword,password,passwordConfirmation,this);
+            profileView.showProgress();
+        }
     }
     @Override
     public void onNameError() {
@@ -92,6 +99,15 @@ public class ProfilePresenter implements ProfileInteractor.OnChangeFinishedListe
             profileView.savedChanges();
         }
     }
+
+    @Override
+    public void onSuccessPasswordChangues() {
+        if(profileView != null){
+            profileView.hideProgress();
+            profileView.savedPasswordChanges();
+        }
+    }
+
 
     public void onDestroy(){
         profileView = null;

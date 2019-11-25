@@ -59,7 +59,7 @@ public class AdapterProducts extends RecyclerView.Adapter<ViewHolderProduct>  {
         Picasso.get().load(product.image).into(holder.imgProduct);
 
         holder.nameProduct.setText(product.nameProduct);
-        holder.costProduct.setText(String.format("%s",product.costUnity));
+        holder.costProduct.setText(String.format("$%s",product.costUnity));
         holder.less.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

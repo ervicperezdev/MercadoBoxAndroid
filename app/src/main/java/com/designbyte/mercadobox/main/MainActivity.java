@@ -77,6 +77,9 @@ public class MainActivity extends AppCompatActivity
     MainInteractor mainInteractor;
     TextView nameHeader, emailHeader;
     Button btnMenu;
+    LinearLayoutManager linearLayoutManager;
+    List<Category> aux = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -139,7 +142,6 @@ public class MainActivity extends AppCompatActivity
                 }
             }
         });
-        showButtonCart();
 
     }
 
@@ -311,13 +313,12 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void loadDataCategories(final List<Category> items) {
-
+        linearLayoutManager = new LinearLayoutManager(this);
         adapterCategories = new AdapterCategories(items,this,listener);
         recyclerCategories.setAdapter(adapterCategories);
-        recyclerCategories.setLayoutManager(new LinearLayoutManager(this));
+        recyclerCategories.setLayoutManager(linearLayoutManager);
         recyclerCategories.setHasFixedSize(true);
 
-        final List<Category> aux = new ArrayList<>();
         Category all = new Category();
         all.id = "all";
         all.nameCategory = "Todos";
@@ -328,14 +329,19 @@ public class MainActivity extends AppCompatActivity
         recyclerFilterCategory.setAdapter(adapterFilterCategories);
         recyclerFilterCategory.setLayoutManager(new LinearLayoutManager(this,RecyclerView.HORIZONTAL,false));
         recyclerFilterCategory.setHasFixedSize(true);
+        showButtonCart();
+
     }
 
     @Override
     public void showButtonBottomCart(List<Cart> items) {
+        linearLayoutManager.scrollToPositionWithOffset(2, 20);
+
         btnCart.setVisibility(View.VISIBLE);
         if(items != null)
         textTotalCart.setText(calculaTotal(items));
         productCount.setText(String.format("%s",items != null ? items.size():""));
+
     }
 
     @Override

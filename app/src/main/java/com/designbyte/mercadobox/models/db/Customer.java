@@ -20,7 +20,14 @@ public class Customer {
     @ColumnInfo(name = "phoneNumber")
     public String phoneNumber;
 
+    @ColumnInfo(name = "address")
+    public String address;
+
+    @ColumnInfo(name = "responsable")
+    public String responsable;
+
     @ColumnInfo(name = "customerId")
     public String customerId;
+
 
 }

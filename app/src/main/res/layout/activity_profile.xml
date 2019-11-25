@@ -63,20 +63,35 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Numero" />
+        <TextView
+            android:layout_margin="10dp"
+            android:textStyle="bold"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?android:attr/selectableItemBackground"
+            android:textColor="@color/colorPrimary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cambiar contraseña"
+            android:id="@+id/btnChangePassword"
+            >
 
+
+        </TextView>
         <EditText
-            android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:hint="Contraseña" />
-
+            android:hint="Dirección"
+            android:id="@+id/address"
+            />
         <EditText
-            android:id="@+id/passwordConfirm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:hint="Repite contraseña" />
+            android:id="@+id/responsable"
+            android:hint="Responsable"
+            />
+
+
     </LinearLayout>
     <ProgressBar
         android:id="@+id/progressBar"

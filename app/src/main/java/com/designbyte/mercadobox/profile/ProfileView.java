@@ -14,4 +14,5 @@ public interface ProfileView {
     void setPasswordNotEqualsError();
     void setDataUser(User user);
     void savedChanges();
+    void savedPasswordChanges();
 }

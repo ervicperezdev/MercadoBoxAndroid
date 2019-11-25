@@ -8,7 +8,7 @@
     android:layout_marginBottom="10dp"
     android:layout_marginLeft="5dp"
     android:layout_marginRight="5dp"
-    app:cardCornerRadius="20dp"
+    app:cardCornerRadius="8dp"
     app:contentPadding="2dp"
     app:cardBackgroundColor="@color/grey_500"
     android:id="@+id/cardCategory"

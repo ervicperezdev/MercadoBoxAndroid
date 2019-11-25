@@ -27,7 +27,6 @@ public class Order {
     @Expose
     public String address;
 
-
     @SerializedName("uidUser")
     @Expose
     public String uidUser;
