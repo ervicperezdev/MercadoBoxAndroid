@@ -10,4 +10,6 @@ public interface CartView {
     void showProgressDialog();
     void hideProgressDialog();
     void loadDataCart(List<Cart> items);
+
+    void onRemoveSuccess();
 }

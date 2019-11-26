@@ -112,8 +112,8 @@
 
             <ImageView
                 android:id="@+id/deleteProduct"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
                 android:layout_margin="10dp"
                 android:background="@drawable/ic_trash"
                 app:layout_constraintTop_toTopOf="parent"

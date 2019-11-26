@@ -11,10 +11,12 @@ import static androidx.room.Room.databaseBuilder;
 public class CartInteractor {
     AppDatabase db;
 
+
     interface OnCartListener {
         void setListItems(List<Cart> listItems);
         void onDeleteCompleted();
         void onCompleteUpdated();
+        void onRemoveAllSuccess();
     }
 
     public void loadItemsCart(Context context, OnCartListener listener){
@@ -30,7 +32,12 @@ public class CartInteractor {
         db.close();
         listener.onDeleteCompleted();
     }
-
+    public void removeAll(Context context, OnCartListener listener){
+        db = databaseBuilder(context, AppDatabase.class, "mbdb").allowMainThreadQueries().build();
+        db.cartDao().deleteAll();
+        db.close();
+        listener.onRemoveAllSuccess();
+    }
     public void updateItemCart(int event, int idItem, Context context, OnCartListener listener){
         db = databaseBuilder(context,
                 AppDatabase.class, "mbdb").allowMainThreadQueries().build();

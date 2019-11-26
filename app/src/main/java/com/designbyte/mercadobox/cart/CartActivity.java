@@ -7,9 +7,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import android.app.ActivityOptions;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -23,6 +26,7 @@ import com.designbyte.mercadobox.detailorder.DetailActivity;
 import com.designbyte.mercadobox.models.db.Cart;
 import com.designbyte.mercadobox.utils.Constants;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CartActivity extends AppCompatActivity implements CartView{
@@ -33,6 +37,7 @@ public class CartActivity extends AppCompatActivity implements CartView{
     RecyclerViewCartClickListener listener;
     TextView textViewTotalCart;
     Button btnContinue;
+    Context context;
 
     final static int ORDER_COMPLETED = 111;
     @Override
@@ -78,7 +83,6 @@ public class CartActivity extends AppCompatActivity implements CartView{
 
     @Override
     public void onContinueOrder() {
-
     }
 
     @Override
@@ -98,6 +102,16 @@ public class CartActivity extends AppCompatActivity implements CartView{
         recyclerProductsCart.setAdapter(adapterProductsCart);
         recyclerProductsCart.setHasFixedSize(true);
         setTotalList(items);
+    }
+
+    @Override
+    public void onRemoveSuccess() {
+        List<Cart> cartList = new ArrayList<>();
+
+        adapterProductsCart = new AdapterProductsCart(cartList,this, listener);
+        recyclerProductsCart.setAdapter(adapterProductsCart);
+        recyclerProductsCart.setHasFixedSize(true);
+        setTotalList(cartList);
     }
 
     public void setTotalList(List<Cart> items){
@@ -136,5 +150,25 @@ public class CartActivity extends AppCompatActivity implements CartView{
 
         }
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.removeAll:
+                cartPresenter.removeAllProducts(context);
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

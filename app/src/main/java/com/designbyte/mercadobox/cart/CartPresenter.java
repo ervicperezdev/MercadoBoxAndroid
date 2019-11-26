@@ -44,6 +44,13 @@ public class CartPresenter implements CartInteractor.OnCartListener {
         }
     }
 
+    @Override
+    public void onRemoveAllSuccess() {
+        if(cartView != null){
+            cartView.onRemoveSuccess();
+        }
+    }
+
     public void deleteItemById(Context context, int id){
         if(cartView != null){
             cartView.showProgressDialog();
@@ -56,4 +63,9 @@ public class CartPresenter implements CartInteractor.OnCartListener {
         }
     }
 
+    public void removeAllProducts(Context context) {
+        if(cartView != null){
+            cartInteractor.removeAll(context, this);
+        }
+    }
 }
